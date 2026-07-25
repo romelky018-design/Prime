@@ -3,659 +3,1065 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>PRIME CREATIVE | Graphic Design · 3D · Web & App Development</title>
+    <title>PRIME CREATIVE | Graphic Design · 3D · Web & App · Digital Marketing</title>
     <!-- Google Fonts & simple reset -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
     <!-- Font Awesome 6 (free icons) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        /* ── root / reset ── */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
+        :root {
+            --bg-primary: #ffffff; --bg-secondary: #f9fafb; --text-primary: #111827;
+            --text-secondary: #4b5563; --text-muted: #6b7280; --card-bg: #ffffff;
+            --border-light: #f1f5f9; --border-medium: #e2e8f0; --accent: #4f46e5;
+            --accent-hover: #6366f1; --shadow-sm: 0 12px 28px -8px rgba(0,0,0,0.05);
+            --shadow-md: 0 20px 35px -12px rgba(0,0,0,0.08); --transition: all 0.25s ease;
+            --chat-bg: #ffffff; --chat-bubble-user: #4f46e5; --chat-bubble-bot: #f1f5f9;
+            --chat-text-user: #ffffff; --chat-text-bot: #111827; --chat-border: #e2e8f0;
+        }
+        body.dark {
+            --bg-primary: #0f172a; --bg-secondary: #1e293b; --text-primary: #f1f5f9;
+            --text-secondary: #cbd5e1; --text-muted: #94a3b8; --card-bg: #1e293b;
+            --border-light: #334155; --border-medium: #475569; --accent: #818cf8;
+            --accent-hover: #a5b4fc; --shadow-sm: 0 12px 28px -8px rgba(0,0,0,0.3);
+            --chat-bg: #1e293b; --chat-bubble-user: #818cf8; --chat-bubble-bot: #334155;
+            --chat-text-user: #ffffff; --chat-text-bot: #f1f5f9; --chat-border: #475569;
+        }
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: #ffffff;
-            color: #111827;
-            line-height: 1.5;
-            scroll-behavior: smooth;
+            font-family: 'Inter', sans-serif; background-color: var(--bg-primary);
+            color: var(--text-primary); line-height: 1.5; scroll-behavior: smooth;
+            transition: background-color 0.3s, color 0.2s;
         }
+        .container { max-width: 1280px; margin: 0 auto; padding: 0 32px; }
 
-        .container {
-            max-width: 1280px;
-            margin: 0 auto;
-            padding: 0 32px;
+        /* ── header / nav ── */
+        .navbar { display: flex; justify-content: space-between; align-items: center; padding: 24px 0; flex-wrap: wrap; gap: 20px; }
+        .logo-img { height: 52px; display: flex; align-items: center; }
+        .logo-img img { height: 100%; width: auto; max-height: 52px; object-fit: contain; }
+        .logo-fallback { font-size: 28px; font-weight: 800; background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent) 100%); background-clip: text; -webkit-background-clip: text; color: transparent; }
+        .nav-links { display: flex; gap: 28px; align-items: center; flex-wrap: wrap; }
+        .nav-links a { text-decoration: none; font-weight: 500; color: var(--text-secondary); transition: color 0.2s; font-size: 1rem; }
+        .nav-links a:hover { color: var(--accent); }
+        .btn-outline { border: 1.5px solid var(--text-secondary); padding: 8px 20px; border-radius: 40px; background: transparent; font-weight: 600; transition: all 0.25s; color: var(--text-secondary); }
+        .btn-outline:hover { background: var(--accent); color: white !important; border-color: var(--accent); }
+        .lang-selector { display: flex; gap: 8px; background: var(--bg-secondary); padding: 6px 12px; border-radius: 40px; border: 1px solid var(--border-medium); }
+        .lang-btn { background: transparent; border: none; font-weight: 600; font-size: 0.85rem; padding: 4px 12px; border-radius: 30px; cursor: pointer; color: var(--text-muted); transition: all 0.2s; }
+        .lang-btn.active { background: var(--accent); color: white; }
+        .lang-btn:hover:not(.active) { color: var(--accent); background: rgba(79,70,229,0.1); }
+        .btn-primary { background: var(--text-primary); color: var(--bg-primary); padding: 12px 32px; border-radius: 40px; text-decoration: none; font-weight: 600; display: inline-block; transition: background 0.25s, transform 0.1s; border: none; cursor: pointer; font-size: 1rem; }
+        .btn-primary:hover { background: var(--accent); transform: translateY(-2px); }
+        .btn-secondary { background: transparent; color: var(--text-primary); padding: 12px 32px; border-radius: 40px; text-decoration: none; font-weight: 600; display: inline-block; border: 1px solid var(--border-medium); transition: all 0.2s; }
+        .btn-secondary:hover { border-color: var(--accent); background: var(--bg-secondary); }
+        .hero { padding: 60px 0 80px 0; }
+        .hero-grid { display: flex; align-items: center; gap: 48px; flex-wrap: wrap; }
+        .hero-content { flex: 1; }
+        .hero-badge { background: rgba(79,70,229,0.1); color: var(--accent); display: inline-block; padding: 6px 14px; border-radius: 30px; font-size: 0.85rem; font-weight: 600; margin-bottom: 24px; }
+        .hero-content h1 { font-size: 3.5rem; font-weight: 800; line-height: 1.2; letter-spacing: -0.02em; margin-bottom: 20px; }
+        .hero-highlight { background: linear-gradient(120deg, var(--accent), #a855f7); background-clip: text; -webkit-background-clip: text; color: transparent; }
+        .hero-content p { font-size: 1.2rem; color: var(--text-secondary); margin-bottom: 32px; max-width: 90%; }
+        .hero-buttons { display: flex; gap: 16px; flex-wrap: wrap; }
+        .hero-visual { flex: 1; background: var(--bg-secondary); border-radius: 40px; padding: 24px; text-align: center; box-shadow: var(--shadow-sm); border: 1px solid var(--border-light); }
+        .grid-icons { display: grid; grid-template-columns: repeat(2,1fr); gap: 24px; }
+        .icon-card { background: var(--card-bg); padding: 24px 12px; border-radius: 28px; text-align: center; box-shadow: 0 8px 20px rgba(0,0,0,0.02); border: 1px solid var(--border-light); transition: var(--transition); display: block; text-decoration: none; color: inherit; }
+        .icon-card:hover { transform: translateY(-4px); border-color: var(--accent); }
+        .icon-card i { font-size: 2.5rem; color: var(--accent); margin-bottom: 12px; }
+        .icon-card h4 { color: var(--text-primary); }
+        .icon-card small { color: var(--text-muted); }
+        .section { padding: 80px 0; }
+        .section-title { text-align: center; font-size: 2.2rem; font-weight: 800; margin-bottom: 16px; }
+        .section-sub { text-align: center; color: var(--text-muted); max-width: 600px; margin: 0 auto 56px auto; }
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px,1fr)); gap: 40px; }
+        .service-card { background: var(--card-bg); border-radius: 32px; padding: 32px 24px; box-shadow: var(--shadow-sm); transition: var(--transition); border: 1px solid var(--border-light); display: block; text-decoration: none; color: inherit; }
+        .service-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-md); border-color: var(--accent); }
+        .service-icon { font-size: 2.8rem; margin-bottom: 24px; color: var(--accent); }
+        .service-card h3 { color: var(--text-primary); }
+        .service-card p { color: var(--text-secondary); }
+        .stats-grid { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 32px; margin: 48px 0 32px; text-align: center; }
+        .stat-item { flex: 1; min-width: 150px; background: var(--card-bg); padding: 32px 24px; border-radius: 32px; border: 1px solid var(--border-light); transition: var(--transition); }
+        .stat-number { font-size: 3rem; font-weight: 800; color: var(--accent); line-height: 1; }
+        .stat-label { margin-top: 12px; color: var(--text-muted); font-weight: 500; }
+        .testimonials-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px,1fr)); gap: 32px; margin-top: 32px; }
+        .testimonial-card { background: var(--card-bg); border-radius: 28px; padding: 28px; border: 1px solid var(--border-light); transition: var(--transition); }
+        .testimonial-card:hover { transform: translateY(-4px); border-color: var(--accent); }
+        .testimonial-text { font-style: italic; margin-bottom: 20px; color: var(--text-secondary); }
+        .testimonial-author { font-weight: 700; margin-top: 8px; }
+        .testimonial-role { font-size: 0.85rem; color: var(--text-muted); }
+        .portfolio-showcase { background: var(--bg-secondary); border-radius: 48px; padding: 32px; margin-top: 20px; }
+        .portfolio-showcase .section-title { text-align: center; }
+        .portfolio-showcase .section-sub { text-align: center; }
+        .mini-gallery { display: flex; flex-wrap: wrap; gap: 24px; justify-content: center; margin-top: 32px; }
+        .gallery-item { background: var(--card-bg); border-radius: 28px; padding: 16px; width: 180px; text-align: center; transition: var(--transition); border: 1px solid var(--border-light); }
+        .gallery-item:hover { transform: scale(1.02); border-color: var(--accent); }
+        .contact-flex { display: flex; flex-wrap: wrap; gap: 48px; background: var(--bg-secondary); border-radius: 48px; padding: 48px 40px; border: 1px solid var(--border-light); }
+        .contact-detail i { color: var(--accent); }
+        .contact-form .form-group { margin-bottom: 20px; }
+        .contact-form input, .contact-form textarea, .contact-form select {
+            width: 100%; padding: 14px 18px; border-radius: 16px;
+            border: 1px solid var(--border-medium); background: var(--bg-primary);
+            color: var(--text-primary); font-family: 'Inter', sans-serif; font-size: 1rem;
+            transition: border-color 0.3s, box-shadow 0.3s; outline: none;
+            appearance: none; -webkit-appearance: none;
         }
-
-        /* header / nav */
-        .navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 24px 0;
-            flex-wrap: wrap;
-            gap: 20px;
+        .contact-form input:focus, .contact-form textarea:focus, .contact-form select:focus {
+            border-color: var(--accent); box-shadow: 0 0 0 4px rgba(79,70,229,0.1);
         }
-
-        .logo {
-            font-size: 28px;
-            font-weight: 800;
-            letter-spacing: -0.02em;
-            background: linear-gradient(135deg, #111827 0%, #3b3b3b 100%);
-            background-clip: text;
-            -webkit-background-clip: text;
-            color: transparent;
-        }
-        .logo span {
-            background: linear-gradient(135deg, #000000, #4f46e5);
-            background-clip: text;
-            -webkit-background-clip: text;
-            color: transparent;
-            font-weight: 800;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 36px;
-            align-items: center;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            font-weight: 500;
-            color: #1f2937;
-            transition: color 0.2s;
-            font-size: 1rem;
-        }
-
-        .nav-links a:hover {
-            color: #4f46e5;
-        }
-
-        .btn-outline {
-            border: 1.5px solid #1f2937;
-            padding: 8px 20px;
-            border-radius: 40px;
-            background: transparent;
-            font-weight: 600;
-            transition: all 0.25s;
-        }
-
-        .btn-outline:hover {
-            background: #1f2937;
-            color: white !important;
-            border-color: #1f2937;
-        }
-
-        /* buttons */
-        .btn-primary {
-            background: #111827;
-            color: white;
-            padding: 12px 32px;
-            border-radius: 40px;
-            text-decoration: none;
-            font-weight: 600;
-            display: inline-block;
-            transition: background 0.25s, transform 0.1s;
-            border: none;
-            cursor: pointer;
-            font-size: 1rem;
-        }
-
-        .btn-primary:hover {
-            background: #4f46e5;
-            transform: translateY(-2px);
-        }
-
-        .btn-secondary {
-            background: white;
-            color: #111827;
-            padding: 12px 32px;
-            border-radius: 40px;
-            text-decoration: none;
-            font-weight: 600;
-            display: inline-block;
-            border: 1px solid #d1d5db;
-            transition: all 0.2s;
-        }
-
-        .btn-secondary:hover {
-            border-color: #4f46e5;
-            background: #f9fafb;
-        }
-
-        /* hero */
-        .hero {
-            padding: 60px 0 80px 0;
-        }
-
-        .hero-grid {
-            display: flex;
-            align-items: center;
-            gap: 48px;
-            flex-wrap: wrap;
-        }
-
-        .hero-content {
-            flex: 1;
-        }
-
-        .hero-badge {
-            background: #eef2ff;
-            color: #4f46e5;
-            display: inline-block;
-            padding: 6px 14px;
-            border-radius: 30px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            margin-bottom: 24px;
-        }
-
-        .hero-content h1 {
-            font-size: 3.5rem;
-            font-weight: 800;
-            line-height: 1.2;
-            letter-spacing: -0.02em;
-            margin-bottom: 20px;
-        }
-
-        .hero-highlight {
-            background: linear-gradient(120deg, #4f46e5, #a855f7);
-            background-clip: text;
-            -webkit-background-clip: text;
-            color: transparent;
-        }
-
-        .hero-content p {
-            font-size: 1.2rem;
-            color: #4b5563;
-            margin-bottom: 32px;
-            max-width: 90%;
-        }
-
-        .hero-buttons {
-            display: flex;
-            gap: 16px;
-            flex-wrap: wrap;
-        }
-
-        .hero-visual {
-            flex: 1;
-            background: #f3f4f6;
-            border-radius: 40px;
-            padding: 24px;
-            text-align: center;
-            box-shadow: 0 20px 35px -12px rgba(0,0,0,0.05);
-        }
-
-        .grid-icons {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 24px;
-        }
-
-        .icon-card {
-            background: white;
-            padding: 24px 12px;
-            border-radius: 28px;
-            text-align: center;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.02);
-            border: 1px solid #f0f0f0;
-            transition: all 0.2s;
-        }
-
-        .icon-card i {
-            font-size: 2.5rem;
-            color: #4f46e5;
-            margin-bottom: 12px;
-        }
-
-        .icon-card h4 {
-            font-weight: 700;
-            margin-bottom: 6px;
-        }
-
-        /* services section */
-        .section {
-            padding: 80px 0;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 2.2rem;
-            font-weight: 800;
-            margin-bottom: 16px;
-        }
-
-        .section-sub {
-            text-align: center;
-            color: #6b7280;
-            max-width: 600px;
-            margin: 0 auto 56px auto;
-        }
-
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 40px;
-        }
-
-        .service-card {
-            background: #ffffff;
-            border-radius: 32px;
-            padding: 32px 24px;
-            box-shadow: 0 12px 28px -8px rgba(0,0,0,0.05);
-            transition: all 0.25s ease;
-            border: 1px solid #f1f5f9;
-        }
-
-        .service-card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 24px 40px -12px rgba(0,0,0,0.12);
-            border-color: #e0e7ff;
-        }
-
-        .service-icon {
-            font-size: 2.8rem;
-            margin-bottom: 24px;
-            color: #4f46e5;
-        }
-
-        .service-card h3 {
-            font-size: 1.7rem;
-            font-weight: 700;
-            margin-bottom: 16px;
-        }
-
-        .service-card p {
-            color: #4b5563;
-            margin-bottom: 24px;
-        }
-
-        .service-tag {
-            font-weight: 600;
-            color: #4f46e5;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        /* portfolio showcase */
-        .portfolio-showcase {
-            background: #fafcff;
-            border-radius: 48px;
-            padding: 32px;
-            margin-top: 20px;
-        }
-
-        .mini-gallery {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 24px;
-            justify-content: center;
-            margin-top: 32px;
-        }
-
-        .gallery-item {
-            background: white;
-            border-radius: 28px;
-            padding: 16px;
-            width: 180px;
-            text-align: center;
-            box-shadow: 0 6px 14px rgba(0,0,0,0.02);
-            border: 1px solid #edf2f7;
-        }
-
-        .gallery-item i {
-            font-size: 3rem;
-            color: #1f2937;
-            margin-bottom: 12px;
-        }
-
-        /* contact + form */
-        .contact-flex {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 48px;
-            background: #f9fafb;
-            border-radius: 48px;
-            padding: 48px 40px;
-        }
-
-        .contact-info {
-            flex: 1;
-        }
-
-        .contact-info h3 {
-            font-size: 1.8rem;
-            margin-bottom: 20px;
-        }
-
-        .contact-detail {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            margin: 24px 0;
-        }
-
-        .contact-detail i {
-            font-size: 1.5rem;
-            color: #4f46e5;
-            width: 40px;
-        }
-
-        .contact-form {
-            flex: 1;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group input, .form-group textarea, .form-group select {
-            width: 100%;
-            padding: 14px 18px;
-            border-radius: 28px;
-            border: 1px solid #e2e8f0;
-            font-family: inherit;
-            font-size: 1rem;
-            transition: 0.2s;
-            background: white;
-        }
-
-        .form-group input:focus, .form-group textarea:focus {
-            outline: none;
-            border-color: #4f46e5;
-            box-shadow: 0 0 0 3px rgba(79,70,229,0.1);
-        }
-
-        footer {
-            background: #111827;
-            color: #e5e7eb;
-            padding: 48px 0 24px;
-            margin-top: 40px;
-        }
-
-        .footer-grid {
-            display: flex;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 40px;
-            margin-bottom: 40px;
-        }
-
-        .footer-logo {
-            font-size: 24px;
-            font-weight: 800;
-            background: linear-gradient(135deg, #ffffff, #c7d2fe);
-            background-clip: text;
-            -webkit-background-clip: text;
-            color: transparent;
-        }
-
-        .social-links a {
-            color: #cbd5e1;
-            margin-right: 20px;
-            font-size: 1.4rem;
-            transition: color 0.2s;
-        }
-
-        .social-links a:hover {
-            color: white;
-        }
-
-        .copyright {
-            text-align: center;
-            border-top: 1px solid #1f2a3e;
-            padding-top: 32px;
-            font-size: 0.85rem;
-        }
-
+        .contact-form textarea { min-height: 120px; resize: vertical; }
+        .contact-form .btn-primary { width: 100%; justify-content: center; padding: 16px; font-size: 1.1rem; border-radius: 16px; margin-top: 8px; display: flex; align-items: center; gap: 8px; }
+        .contact-form select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236b7280' d='M6 8L1 3h10z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 18px center; padding-right: 48px; }
+        footer { background: var(--text-primary); color: #cbd5e1; }
+        body.dark footer { background: #020617; }
+        .footer-logo { background: linear-gradient(135deg, #ffffff, var(--accent)); background-clip: text; -webkit-background-clip: text; color: transparent; }
+        .back-to-top { position: fixed; bottom: 30px; left: 30px; background: var(--accent); color: white; width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; opacity: 0; visibility: hidden; transition: all 0.3s; z-index: 99; box-shadow: 0 4px 12px rgba(0,0,0,0.15); border: none; font-size: 1.2rem; }
+        .back-to-top.show { opacity: 1; visibility: visible; }
+        .back-to-top:hover { background: var(--accent-hover); transform: scale(1.05); }
+        .theme-toggle { background: var(--bg-secondary); border: 1px solid var(--border-medium); border-radius: 40px; padding: 8px 16px; cursor: pointer; font-size: 1.2rem; display: inline-flex; align-items: center; gap: 6px; transition: var(--transition); }
+        .menu-toggle { display: none; font-size: 1.8rem; cursor: pointer; background: none; border: none; color: var(--text-primary); }
         @media (max-width: 800px) {
-            .navbar {
-                flex-direction: column;
-            }
-            .hero-content h1 {
-                font-size: 2.5rem;
-            }
-            .hero-content p {
-                max-width: 100%;
-            }
-            .container {
-                padding: 0 24px;
-            }
-            .contact-flex {
-                padding: 32px 24px;
-            }
+            .menu-toggle { display: block; }
+            .nav-links { position: fixed; top: 80px; left: -100%; flex-direction: column; background: var(--bg-primary); width: 80%; height: calc(100vh - 80px); padding: 40px 24px; transition: left 0.3s ease; box-shadow: 5px 0 20px rgba(0,0,0,0.1); z-index: 100; gap: 28px; align-items: flex-start; border-right: 1px solid var(--border-light); }
+            .nav-links.open { left: 0; }
+            .hero-content h1 { font-size: 2.5rem; }
+            .hero-content p { max-width: 100%; }
+            .container { padding: 0 24px; }
+            .lang-selector { order: 2; margin-top: 8px; }
+            .back-to-top { left: 16px; bottom: 16px; width: 42px; height: 42px; font-size: 1rem; }
+        }
+        .fade-up { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
+        .fade-up.revealed { opacity: 1; transform: translateY(0); }
+        .social-links a { color: var(--text-muted); }
+        .social-links a:hover { color: var(--accent); }
+        [data-translate] { transition: all 0.1s; }
+
+        /* ─── CHAT WIDGET ─── */
+        .chat-widget { position: fixed; bottom: 30px; right: 30px; z-index: 1000; display: flex; flex-direction: column; align-items: flex-end; font-family: 'Inter', sans-serif; }
+        .chat-toggle { width: 64px; height: 64px; border-radius: 50%; background: var(--accent); color: #fff; border: none; font-size: 28px; cursor: pointer; box-shadow: 0 8px 28px rgba(79,70,229,0.35); transition: transform 0.3s, background 0.3s, box-shadow 0.3s; display: flex; align-items: center; justify-content: center; position: relative; }
+        .chat-toggle:hover { transform: scale(1.06); background: var(--accent-hover); box-shadow: 0 10px 36px rgba(79,70,229,0.45); }
+        .chat-toggle .badge-dot { position: absolute; top: 6px; right: 6px; width: 16px; height: 16px; background: #f43f5e; border-radius: 50%; border: 2px solid var(--bg-primary); animation: pulse-dot 2s infinite; }
+        @keyframes pulse-dot { 0%,100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.3); opacity: 0.7; } }
+        .chat-window { position: absolute; bottom: 80px; right: 0; width: 380px; max-width: 92vw; height: 520px; max-height: 70vh; background: var(--chat-bg); border-radius: 28px; box-shadow: 0 24px 60px rgba(0,0,0,0.18); border: 1px solid var(--chat-border); display: flex; flex-direction: column; overflow: hidden; transform: scale(0.85); transform-origin: bottom right; opacity: 0; visibility: hidden; transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1), opacity 0.3s ease, visibility 0.3s ease; }
+        .chat-window.open { transform: scale(1); opacity: 1; visibility: visible; }
+        .chat-header { padding: 18px 22px; background: var(--accent); color: #fff; display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; gap: 12px; flex-wrap: wrap; }
+        .chat-header-left { display: flex; align-items: center; gap: 12px; }
+        .chat-header-avatar { width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 18px; }
+        .chat-header-info h4 { font-weight: 700; font-size: 1rem; margin: 0; line-height: 1.2; }
+        .chat-header-info small { font-size: 0.75rem; opacity: 0.8; display: flex; align-items: center; gap: 4px; }
+        .chat-header-info small .status-dot { display: inline-block; width: 8px; height: 8px; background: #4ade80; border-radius: 50%; animation: pulse-dot 2s infinite; }
+        .chat-lang-picker { display: flex; gap: 4px; background: rgba(255,255,255,0.15); padding: 4px 6px; border-radius: 30px; margin-right: 4px; }
+        .chat-lang-picker button { background: transparent; border: none; color: #fff; font-size: 0.65rem; font-weight: 700; padding: 2px 8px; border-radius: 20px; cursor: pointer; opacity: 0.5; transition: all 0.2s; text-transform: uppercase; }
+        .chat-lang-picker button.active { background: #fff; color: var(--accent); opacity: 1; }
+        .chat-lang-picker button:hover { opacity: 1; }
+        .chat-close { background: #ef4444; color: white; width: 36px; height: 36px; border-radius: 50%; border: none; font-size: 16px; cursor: pointer; transition: background 0.2s; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .chat-close:hover { background: #dc2626; }
+        .chat-messages { flex: 1; padding: 18px 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; background: var(--chat-bg); scroll-behavior: smooth; }
+        .chat-messages::-webkit-scrollbar { width: 5px; }
+        .chat-messages::-webkit-scrollbar-track { background: transparent; }
+        .chat-messages::-webkit-scrollbar-thumb { background: var(--border-medium); border-radius: 10px; }
+        .msg { max-width: 85%; padding: 12px 16px; border-radius: 18px; font-size: 0.9rem; line-height: 1.5; animation: msgIn 0.3s ease; word-break: break-word; }
+        @keyframes msgIn { 0% { opacity: 0; transform: translateY(12px) scale(0.96); } 100% { opacity: 1; transform: translateY(0) scale(1); } }
+        .msg.user { background: var(--chat-bubble-user); color: var(--chat-text-user); align-self: flex-end; border-bottom-right-radius: 4px; }
+        .msg.bot { background: var(--chat-bubble-bot); color: var(--chat-text-bot); align-self: flex-start; border-bottom-left-radius: 4px; }
+        .msg.bot .msg-typing { display: flex; gap: 4px; padding: 2px 0; }
+        .msg.bot .msg-typing span { width: 8px; height: 8px; background: var(--text-muted); border-radius: 50%; animation: typingBounce 1.4s infinite; }
+        .msg.bot .msg-typing span:nth-child(2) { animation-delay: 0.2s; }
+        .msg.bot .msg-typing span:nth-child(3) { animation-delay: 0.4s; }
+        @keyframes typingBounce { 0%,60%,100% { transform: translateY(0); opacity: 0.4; } 30% { transform: translateY(-8px); opacity: 1; } }
+        .msg-time { font-size: 0.65rem; opacity: 0.5; margin-top: 4px; display: block; }
+        .chat-footer { padding: 14px 18px 18px; border-top: 1px solid var(--chat-border); display: flex; gap: 10px; background: var(--chat-bg); flex-shrink: 0; align-items: flex-end; }
+        .chat-footer textarea { flex: 1; border: 1px solid var(--chat-border); border-radius: 24px; padding: 10px 16px; font-family: 'Inter', sans-serif; font-size: 0.9rem; resize: none; min-height: 44px; max-height: 100px; background: var(--bg-secondary); color: var(--text-primary); outline: none; transition: border-color 0.2s; line-height: 1.4; }
+        .chat-footer textarea:focus { border-color: var(--accent); }
+        .chat-footer textarea::placeholder { color: var(--text-muted); font-size: 0.85rem; }
+        .chat-send { width: 44px; height: 44px; border-radius: 50%; background: var(--accent); color: #fff; border: none; font-size: 18px; cursor: pointer; transition: background 0.2s, transform 0.15s; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .chat-send:hover { background: var(--accent-hover); transform: scale(1.05); }
+        .chat-send:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+        .quick-replies { display: flex; flex-wrap: wrap; gap: 8px; padding: 8px 20px 12px; background: var(--chat-bg); border-top: 1px solid var(--chat-border); flex-shrink: 0; align-items: center; }
+        .quick-reply-btn { background: var(--bg-secondary); border: 1px solid var(--chat-border); border-radius: 30px; padding: 6px 16px; font-size: 0.78rem; font-weight: 500; cursor: pointer; transition: all 0.2s; color: var(--text-secondary); white-space: nowrap; }
+        .quick-reply-btn:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
+        .quick-reply-btn.whatsapp-btn { background: #25D366; color: white; border-color: #25D366; }
+        .quick-reply-btn.whatsapp-btn:hover { background: #1ebe5c; border-color: #1ebe5c; }
+        .chat-settings-btn { background: rgba(255,255,255,0.15); border: none; color: #fff; width: 34px; height: 34px; border-radius: 50%; font-size: 16px; cursor: pointer; transition: background 0.2s; display: flex; align-items: center; justify-content: center; }
+        .chat-settings-btn:hover { background: rgba(255,255,255,0.3); }
+        .chat-settings-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.4); backdrop-filter: blur(4px); z-index: 2000; display: flex; align-items: center; justify-content: center; opacity: 0; visibility: hidden; transition: opacity 0.3s, visibility 0.3s; }
+        .chat-settings-overlay.open { opacity: 1; visibility: visible; }
+        .chat-settings-modal { background: var(--chat-bg); border-radius: 32px; padding: 32px 36px; max-width: 440px; width: 92%; border: 1px solid var(--chat-border); box-shadow: 0 30px 60px rgba(0,0,0,0.2); transform: scale(0.9); transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1); }
+        .chat-settings-overlay.open .chat-settings-modal { transform: scale(1); }
+        .chat-settings-modal h3 { margin-bottom: 8px; font-weight: 700; font-size: 1.3rem; }
+        .chat-settings-modal p { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 20px; }
+        .chat-settings-modal label { display: block; font-weight: 600; font-size: 0.85rem; margin-top: 14px; margin-bottom: 4px; }
+        .chat-settings-modal input, .chat-settings-modal select { width: 100%; padding: 10px 14px; border-radius: 16px; border: 1px solid var(--chat-border); background: var(--bg-secondary); color: var(--text-primary); font-family: 'Inter', sans-serif; font-size: 0.9rem; outline: none; transition: border-color 0.2s; }
+        .chat-settings-modal input:focus, .chat-settings-modal select:focus { border-color: var(--accent); }
+        .chat-settings-modal .settings-actions { display: flex; gap: 12px; margin-top: 24px; justify-content: flex-end; }
+        .chat-settings-modal .settings-actions button { padding: 10px 28px; border-radius: 40px; border: none; font-weight: 600; font-size: 0.9rem; cursor: pointer; transition: all 0.2s; }
+        .chat-settings-modal .settings-actions .btn-save { background: var(--accent); color: #fff; }
+        .chat-settings-modal .settings-actions .btn-save:hover { background: var(--accent-hover); }
+        .chat-settings-modal .settings-actions .btn-cancel { background: var(--bg-secondary); color: var(--text-secondary); border: 1px solid var(--chat-border); }
+        .chat-settings-modal .settings-actions .btn-cancel:hover { background: var(--border-light); }
+        @media (max-width: 500px) {
+            .chat-window { width: 100vw; max-width: 100vw; height: 100vh; max-height: 100vh; border-radius: 0; bottom: 0; right: 0; }
+            .chat-widget { bottom: 0; right: 0; }
+            .chat-toggle { margin: 0 16px 16px 0; width: 56px; height: 56px; font-size: 24px; }
+            .chat-window.open { border-radius: 0; }
+            .chat-settings-modal { padding: 24px; }
+            .back-to-top { left: 16px; bottom: 16px; width: 42px; height: 42px; font-size: 1rem; }
+            .chat-lang-picker button { font-size: 0.55rem; padding: 2px 6px; }
+            .chat-header { padding: 12px 16px; }
         }
     </style>
 </head>
 <body>
 
-<header>
-    <div class="container">
-        <div class="navbar">
-            <div class="logo">PRIME <span>CREATIVE</span></div>
-            <div class="nav-links">
-                <a href="#home">Home</a>
-                <a href="#services">Services</a>
-                <a href="#work">Portfolio</a>
-                <a href="#contact">Contact</a>
-                <a href="#contact" class="btn-outline">Let’s talk</a>
+    <header>
+        <div class="container">
+            <div class="navbar">
+                <div class="logo-img">
+                    <img src="logo.jpg" alt="Prime Creative Logo" style="height:52px; width:auto; max-height:52px; object-fit:contain;" onerror="this.parentElement.innerHTML='<div class=\'logo-fallback\'>PRIME <span>CREATIVE</span></div>'">
+                </div>
+                <button class="menu-toggle" id="menuToggle" aria-label="Menu"><i class="fas fa-bars"></i></button>
+                <div class="nav-links" id="navLinks">
+                    <a href="#home" data-translate="nav_home">Home</a>
+                    <a href="#services" data-translate="nav_services">Services</a>
+                    <a href="#work" data-translate="nav_portfolio">Portfolio</a>
+                    <a href="#contact" data-translate="nav_contact">Contact</a>
+                    <a href="#contact" class="btn-outline" data-translate="nav_talk">Let's talk</a>
+                    <div class="lang-selector" id="languagePicker">
+                        <button class="lang-btn active" data-lang="en">EN</button>
+                        <button class="lang-btn" data-lang="fr">FR</button>
+                        <button class="lang-btn" data-lang="ht">KREYÒL</button>
+                    </div>
+                    <button id="darkModeToggle" class="theme-toggle"><i class="fas fa-moon"></i> <span>Dark</span></button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero -->
+        <section id="home" class="hero fade-up">
+            <div class="container">
+                <div class="hero-grid">
+                    <div class="hero-content">
+                        <div class="hero-badge"><i class="fas fa-bolt"></i> <span data-translate="hero_badge">design · 3D · dev</span></div>
+                        <h1><span data-translate="hero_title1">Where</span> <span class="hero-highlight" data-translate="hero_title2">vision</span> <span data-translate="hero_title3">meets<br>execution</span></h1>
+                        <p data-translate="hero_desc">Graphic design, 3D artistry, websites & apps — we craft digital experiences that resonate. Your brand, elevated.</p>
+                        <div class="hero-buttons">
+                            <a href="#contact" class="btn-primary" data-translate="hero_btn1">Start a project</a>
+                            <a href="#services" class="btn-secondary" data-translate="hero_btn2">Explore services</a>
+                        </div>
+                    </div>
+                    <div class="hero-visual">
+                        <div class="grid-icons">
+                            <a href="https://drive.google.com/file/d/1PNTaA7c8v6oREuEm8OFrCWCjLEYUh7JR/view?usp=drivesdk" target="_blank" class="icon-card">
+                                <i class="fas fa-pen-fancy"></i>
+                                <h4 data-translate="graphic_title">Graphic</h4>
+                                <small data-translate="graphic_sub">Identity, print, digital</small>
+                            </a>
+                            <div class="icon-card"><i class="fas fa-cube"></i><h4 data-translate="3d_title">3D</h4><small data-translate="3d_sub">Modeling & rendering</small></div>
+                            <a href="https://romelky018-design.github.io/Portfolio/" target="_blank" class="icon-card">
+                                <i class="fas fa-globe"></i>
+                                <h4 data-translate="webapp_title">Web & App</h4>
+                                <small data-translate="webapp_sub">Full-stack dev</small>
+                            </a>
+                            <div class="icon-card"><i class="fas fa-chart-line"></i><h4 data-translate="marketing_title">Marketing</h4><small data-translate="marketing_sub">Digital strategy</small></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services -->
+        <section id="services" class="section fade-up">
+            <div class="container">
+                <h2 class="section-title" data-translate="services_title">What we deliver</h2>
+                <p class="section-sub" data-translate="services_sub">Creative solutions that blend aesthetics, technology, and performance</p>
+                <div class="services-grid">
+                    <a href="https://drive.google.com/file/d/1PNTaA7c8v6oREuEm8OFrCWCjLEYUh7JR/view?usp=drivesdk" target="_blank" class="service-card">
+                        <div class="service-icon"><i class="fas fa-paintbrush"></i></div>
+                        <h3 data-translate="service1_title">Graphic Design</h3>
+                        <p data-translate="service1_desc">Logos, brand identity, packaging, social media visuals, and print materials that stand out. We create cohesive visual languages.</p>
+                        <span class="service-tag" style="color:var(--accent);" data-translate="explore">Explore <i class="fas fa-arrow-right"></i></span>
+                    </a>
+                    <div class="service-card"><div class="service-icon"><i class="fas fa-cube"></i></div><h3 data-translate="service2_title">3D & Motion</h3><p data-translate="service2_desc">High-end 3D modeling, product visualization, architectural rendering, and animation. Bring concepts to life with depth & realism.</p><span class="service-tag" style="color:var(--accent);" data-translate="explore">Explore <i class="fas fa-arrow-right"></i></span></div>
+                    <a href="https://romelky018-design.github.io/Portfolio/" target="_blank" class="service-card">
+                        <div class="service-icon"><i class="fas fa-laptop-code"></i></div>
+                        <h3 data-translate="service3_title">Web & App Dev</h3>
+                        <p data-translate="service3_desc">Custom websites, e‑commerce, CMS, full‑stack, and cross-platform apps (iOS, Android, Flutter, React Native). From MVP to polished product.</p>
+                        <span class="service-tag" style="color:var(--accent);" data-translate="explore">Explore <i class="fas fa-arrow-right"></i></span>
+                    </a>
+                    <div class="service-card"><div class="service-icon"><i class="fas fa-chart-simple"></i></div><h3 data-translate="service4_title">Digital Marketing</h3><p data-translate="service4_desc">SEO, social media management, content strategy, paid ads, and analytics. Grow your brand's online presence and convert leads into customers.</p><span class="service-tag" style="color:var(--accent);" data-translate="explore">Explore <i class="fas fa-arrow-right"></i></span></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stats -->
+        <section class="section fade-up" style="padding-top:0;">
+            <div class="container">
+                <div class="stats-grid" id="statsContainer">
+                    <div class="stat-item"><div class="stat-number" data-target="287">0</div><div class="stat-label" data-translate="stat_projects">Projects Completed</div></div>
+                    <div class="stat-item"><div class="stat-number" data-target="194">0</div><div class="stat-label" data-translate="stat_clients">Happy Clients</div></div>
+                    <div class="stat-item"><div class="stat-number" data-target="6">0</div><div class="stat-label" data-translate="stat_years">Years Excellence</div></div>
+                    <div class="stat-item"><div class="stat-number" data-target="10">0</div><div class="stat-label" data-translate="stat_team">Team Members</div></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Portfolio -->
+        <section id="work" class="section fade-up" style="padding-top:0;">
+            <div class="container">
+                <div class="portfolio-showcase">
+                    <h2 class="section-title" data-translate="portfolio_title">Creative showcase</h2>
+                    <p class="section-sub" data-translate="portfolio_sub">A glimpse of recent magic — design, 3D & digital craft</p>
+                    <div class="mini-gallery">
+                        <div class="gallery-item"><i class="fas fa-crown"></i><h4 data-translate="gallery1">Brand Identity</h4><small data-translate="gallery1_sub">Visual identity system</small></div>
+                        <div class="gallery-item"><i class="fas fa-couch"></i><h4 data-translate="gallery2">3D Furniture</h4><small data-translate="gallery2_sub">Product viz</small></div>
+                        <div class="gallery-item"><i class="fas fa-globe"></i><h4 data-translate="gallery3">Web Studio</h4><small data-translate="gallery3_sub">Fashion e‑commerce</small></div>
+                        <div class="gallery-item"><i class="fas fa-chart-line"></i><h4 data-translate="gallery4">Fintech App</h4><small data-translate="gallery4_sub">UI/UX + dev</small></div>
+                        <div class="gallery-item"><i class="fas fa-bullhorn"></i><h4 data-translate="gallery5">Social Campaign</h4><small data-translate="gallery5_sub">Digital marketing</small></div>
+                    </div>
+                    <div style="text-align:center; margin-top:32px;"><a href="#contact" class="btn-secondary" data-translate="portfolio_cta">→ Request full portfolio</a></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials -->
+        <section class="section fade-up">
+            <div class="container">
+                <h2 class="section-title" data-translate="testimonial_title">What clients say</h2>
+                <p class="section-sub" data-translate="testimonial_sub">Trusted by creators & enterprises worldwide</p>
+                <div class="testimonials-grid">
+                    <div class="testimonial-card"><i class="fas fa-quote-left" style="color:var(--accent); font-size:1.8rem; margin-bottom:12px; display:block;"></i><p class="testimonial-text" data-translate="testimonial1">"Prime Creative redesigned our entire brand identity and built a high‑performance e‑commerce site. Sales increased by 140% in 3 months."</p><div class="testimonial-author" data-translate="author1">— Sophia Chen</div><div class="testimonial-role" data-translate="role1">Creative Director, Lumina</div></div>
+                    <div class="testimonial-card"><i class="fas fa-quote-left" style="color:var(--accent); font-size:1.8rem; margin-bottom:12px; display:block;"></i><p class="testimonial-text" data-translate="testimonial2">"The 3D product visualizations blew us away. The team's attention to detail and speed is unmatched. Highly recommend for any immersive work."</p><div class="testimonial-author" data-translate="author2">— Marcus Velez</div><div class="testimonial-role" data-translate="role2">Founder, ModaStudio</div></div>
+                    <div class="testimonial-card"><i class="fas fa-quote-left" style="color:var(--accent); font-size:1.8rem; margin-bottom:12px; display:block;"></i><p class="testimonial-text" data-translate="testimonial3">"From concept to launch, they delivered a seamless fintech app. Users love the UI/UX. Professional and creative — 10/10."</p><div class="testimonial-author" data-translate="author3">— Aisha Khan</div><div class="testimonial-role" data-translate="role3">CTO, NimbusPay</div></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact -->
+        <section id="contact" class="section fade-up">
+            <div class="container">
+                <div class="contact-flex">
+                    <div class="contact-info">
+                        <h3><span data-translate="contact_title1">Let's create something</span> <span style="color:var(--accent);" data-translate="contact_title2">remarkable</span></h3>
+                        <p data-translate="contact_desc">Got a project in mind? Whether it's a complete brand overhaul, a 3D visual, or a complex web/app — let's talk.</p>
+                        <div class="contact-detail"><i class="fas fa-envelope"></i> <span>hello@primecreative.com</span></div>
+                        <div class="contact-detail"><i class="fas fa-phone-alt"></i> <span>+1 (212) 555 0987</span></div>
+                        <div class="contact-detail"><i class="fas fa-map-marker-alt"></i> <span data-translate="address">New York / LA · remote worldwide</span></div>
+                        <div class="social-links" style="margin-top:32px;"><a href="#"><i class="fab fa-behance"></i></a><a href="#"><i class="fab fa-dribbble"></i></a><a href="#"><i class="fab fa-linkedin-in"></i></a><a href="#"><i class="fab fa-instagram"></i></a></div>
+                    </div>
+                    <div class="contact-form">
+                        <form id="inquiryForm">
+                            <div class="form-group"><input type="text" id="name" placeholder="Full name" required data-translate-placeholder="form_name"></div>
+                            <div class="form-group"><input type="email" id="email" placeholder="Email address" required data-translate-placeholder="form_email"></div>
+                            <div class="form-group">
+                                <select id="serviceInterest">
+                                    <option value="Graphic Design" data-translate="service_opt1">Graphic Design</option>
+                                    <option value="3D & Motion" data-translate="service_opt2">3D & Motion</option>
+                                    <option value="Web & App Development" data-translate="service_opt3">Web & App Development</option>
+                                    <option value="Digital Marketing" data-translate="service_opt4">Digital Marketing</option>
+                                    <option value="Other" data-translate="service_opt5">Other / full package</option>
+                                </select>
+                            </div>
+                            <div class="form-group"><textarea rows="4" id="message" placeholder="Tell us about your vision..." data-translate-placeholder="form_message"></textarea></div>
+                            <button type="submit" class="btn-primary" data-translate="form_submit">Send inquiry →</button>
+                            <p id="formFeedback" style="margin-top:16px; font-size:0.85rem;"></p>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid" style="display:flex; justify-content:space-between; flex-wrap:wrap; gap:40px; margin-bottom:40px;">
+                <div><div class="footer-logo">PRIME CREATIVE</div><p style="margin-top:16px; max-width:260px;" data-translate="footer_desc">Design, 3D, code — we craft digital excellence for forward-thinking brands.</p></div>
+                <div><h4 style="color:white; margin-bottom:16px;" data-translate="footer_explore">Explore</h4><p><a href="#services" style="color:#cbd5e1; text-decoration:none;" data-translate="footer_services">Services</a></p><p><a href="#work" style="color:#cbd5e1; text-decoration:none;" data-translate="footer_portfolio">Portfolio</a></p><p><a href="#contact" style="color:#cbd5e1; text-decoration:none;" data-translate="footer_careers">Careers</a></p></div>
+                <div><h4 style="color:white; margin-bottom:16px;" data-translate="footer_legal">Legal</h4><p style="color:#cbd5e1;" data-translate="footer_privacy">Privacy policy</p><p style="color:#cbd5e1;" data-translate="footer_terms">Terms of service</p></div>
+            </div>
+            <div class="copyright"><span data-translate="copyright">© 2025 PRIME CREATIVE — All works and brands belong to their respective owners. Crafted with</span> <i class="fas fa-heart" style="color:#f43f5e;"></i> <span data-translate="copyright_end">for bold ideas.</span></div>
+        </div>
+    </footer>
+
+    <!-- Back to top -->
+    <button class="back-to-top" id="backToTop" aria-label="Back to top"><i class="fas fa-arrow-up"></i></button>
+
+    <!-- Chat Widget -->
+    <div class="chat-widget" id="chatWidget">
+        <button class="chat-toggle" id="chatToggle" aria-label="Chat with AI">
+            <i class="fas fa-comment-dots"></i>
+            <span class="badge-dot"></span>
+        </button>
+        <div class="chat-window" id="chatWindow">
+            <div class="chat-header">
+                <div class="chat-header-left">
+                    <div class="chat-header-avatar"><i class="fas fa-robot"></i></div>
+                    <div class="chat-header-info">
+                        <h4 id="chatHeaderTitle">Prime AI Assistant</h4>
+                        <small><span class="status-dot"></span> <span id="chatHeaderStatus">Online · ready to help</span></small>
+                    </div>
+                </div>
+                <div style="display:flex;gap:6px;align-items:center;">
+                    <div class="chat-lang-picker" id="chatLangPicker">
+                        <button class="active" data-lang="en">EN</button>
+                        <button data-lang="fr">FR</button>
+                        <button data-lang="ht">HT</button>
+                    </div>
+                    <button class="chat-settings-btn" id="chatSettingsBtn" title="Settings"><i class="fas fa-cog"></i></button>
+                    <button class="chat-close" id="chatCloseBtn" aria-label="Close chat"><i class="fas fa-times"></i></button>
+                </div>
+            </div>
+            <div class="chat-messages" id="chatMessages"></div>
+            <div class="quick-replies" id="quickReplies"></div>
+            <div class="chat-footer">
+                <textarea id="chatInput" rows="1" placeholder="Type your message…" aria-label="Chat message"></textarea>
+                <button class="chat-send" id="chatSendBtn" aria-label="Send message"><i class="fas fa-paper-plane"></i></button>
             </div>
         </div>
     </div>
-</header>
 
-<main>
-    <!-- Hero section -->
-    <section id="home" class="hero">
-        <div class="container">
-            <div class="hero-grid">
-                <div class="hero-content">
-                    <div class="hero-badge"><i class="fas fa-bolt"></i> design · 3D · dev</div>
-                    <h1>Where <span class="hero-highlight">vision</span> meets<br>execution</h1>
-                    <p>Graphic design, 3D artistry, websites & apps — we craft digital experiences that resonate. Your brand, elevated.</p>
-                    <div class="hero-buttons">
-                        <a href="#contact" class="btn-primary">Start a project</a>
-                        <a href="#services" class="btn-secondary">Explore services</a>
-                    </div>
-                </div>
-                <div class="hero-visual">
-                    <div class="grid-icons">
-                        <div class="icon-card"><i class="fas fa-pen-fancy"></i><h4>Graphic</h4><small>Identity, print, digital</small></div>
-                        <div class="icon-card"><i class="fas fa-cube"></i><h4>3D</h4><small>Modeling & rendering</small></div>
-                        <div class="icon-card"><i class="fas fa-code"></i><h4>Web</h4><small>Responsive sites</small></div>
-                        <div class="icon-card"><i class="fas fa-mobile-alt"></i><h4>Apps</h4><small>iOS · Android · cross</small></div>
-                    </div>
-                </div>
+    <!-- Settings overlay -->
+    <div class="chat-settings-overlay" id="chatSettingsOverlay">
+        <div class="chat-settings-modal">
+            <h3><i class="fas fa-cog" style="color:var(--accent);"></i> AI Settings</h3>
+            <p>Connect to a real AI model via OpenRouter for smarter responses. Leave empty to use the built-in rule-based assistant.</p>
+            <label for="apiKeyInput">OpenRouter API Key</label>
+            <input type="password" id="apiKeyInput" placeholder="sk-or-v1-…" />
+            <label for="modelSelect">Model</label>
+            <select id="modelSelect">
+                <option value="google/gemini-2.0-flash-exp:free">Gemini 2.0 Flash (free)</option>
+                <option value="mistralai/mistral-7b-instruct:free">Mistral 7B (free)</option>
+                <option value="meta-llama/llama-3.2-3b-instruct:free">Llama 3.2 3B (free)</option>
+                <option value="microsoft/phi-3.5-mini-128k-instruct:free">Phi-3.5 Mini (free)</option>
+            </select>
+            <div class="settings-actions">
+                <button class="btn-cancel" id="settingsCancel">Cancel</button>
+                <button class="btn-save" id="settingsSave">Save</button>
             </div>
-        </div>
-    </section>
-
-    <!-- Services -->
-    <section id="services" class="section">
-        <div class="container">
-            <h2 class="section-title">What we deliver</h2>
-            <p class="section-sub">Creative solutions that blend aesthetics, technology, and performance</p>
-            <div class="services-grid">
-                <div class="service-card">
-                    <div class="service-icon"><i class="fas fa-paintbrush"></i></div>
-                    <h3>Graphic Design</h3>
-                    <p>Logos, brand identity, packaging, social media visuals, and print materials that stand out. We create cohesive visual languages.</p>
-                    <span class="service-tag">Explore <i class="fas fa-arrow-right"></i></span>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon"><i class="fas fa-cube"></i></div>
-                    <h3>3D & Motion</h3>
-                    <p>High-end 3D modeling, product visualization, architectural rendering, and animation. Bring concepts to life with depth & realism.</p>
-                    <span class="service-tag">Explore <i class="fas fa-arrow-right"></i></span>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon"><i class="fas fa-laptop-code"></i></div>
-                    <h3>Website Dev</h3>
-                    <p>Custom websites, e‑commerce, CMS, and full‑stack solutions. Fast, mobile-first, SEO-friendly, and visually striking.</p>
-                    <span class="service-tag">Explore <i class="fas fa-arrow-right"></i></span>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon"><i class="fas fa-mobile-alt"></i></div>
-                    <h3>App Development</h3>
-                    <p>Native & cross-platform apps (iOS, Android, Flutter, React Native). From MVP to polished product — we build for scale.</p>
-                    <span class="service-tag">Explore <i class="fas fa-arrow-right"></i></span>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Portfolio / work preview -->
-    <section id="work" class="section" style="padding-top: 0;">
-        <div class="container">
-            <div class="portfolio-showcase">
-                <h2 class="section-title" style="text-align: left; margin-bottom: 8px;">Creative showcase</h2>
-                <p class="section-sub" style="text-align: left; margin-bottom: 20px;">A glimpse of recent magic — design, 3D & digital craft</p>
-                <div class="mini-gallery">
-                    <div class="gallery-item"><i class="fas fa-crown"></i><h4>Brand Identity</h4><small>Visual identity system</small></div>
-                    <div class="gallery-item"><i class="fas fa-couch"></i><h4>3D Furniture</h4><small>Product viz</small></div>
-                    <div class="gallery-item"><i class="fas fa-globe"></i><h4>Web Studio</h4><small>Fashion e‑commerce</small></div>
-                    <div class="gallery-item"><i class="fas fa-chart-line"></i><h4>Fintech App</h4><small>UI/UX + dev</small></div>
-                    <div class="gallery-item"><i class="fas fa-vr-cardboard"></i><h4>3D Environments</h4><small>Real-time</small></div>
-                </div>
-                <div style="text-align: center; margin-top: 32px;">
-                    <a href="#contact" class="btn-secondary">→ Request full portfolio</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact + quote form -->
-    <section id="contact" class="section">
-        <div class="container">
-            <div class="contact-flex">
-                <div class="contact-info">
-                    <h3>Let’s create something <span style="color:#4f46e5;">remarkable</span></h3>
-                    <p>Got a project in mind? Whether it's a complete brand overhaul, a 3D visual, or a complex web/app — let’s talk.</p>
-                    <div class="contact-detail">
-                        <i class="fas fa-envelope"></i> <span>hello@primecreative.com</span>
-                    </div>
-                    <div class="contact-detail">
-                        <i class="fas fa-phone-alt"></i> <span>+1 (212) 555 0987</span>
-                    </div>
-                    <div class="contact-detail">
-                        <i class="fas fa-map-marker-alt"></i> <span>New York / LA · remote worldwide</span>
-                    </div>
-                    <div class="social-links" style="margin-top: 32px;">
-                        <a href="#"><i class="fab fa-behance"></i></a>
-                        <a href="#"><i class="fab fa-dribbble"></i></a>
-                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                    </div>
-                </div>
-                <div class="contact-form">
-                    <form id="inquiryForm" action="#" method="post">
-                        <div class="form-group">
-                            <input type="text" id="name" placeholder="Full name" required>
-                        </div>
-                        <div class="form-group">
-                            <input type="email" id="email" placeholder="Email address" required>
-                        </div>
-                        <div class="form-group">
-                            <select id="serviceInterest">
-                                <option value="Graphic Design">Graphic Design</option>
-                                <option value="3D & Motion">3D & Motion</option>
-                                <option value="Website Development">Website Development</option>
-                                <option value="App Development">App Development</option>
-                                <option value="Other">Other / full package</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <textarea rows="4" id="message" placeholder="Tell us about your vision..."></textarea>
-                        </div>
-                        <button type="submit" class="btn-primary" style="width: 100%; text-align: center;">Send inquiry →</button>
-                        <p id="formFeedback" style="margin-top: 16px; font-size: 0.85rem; color: #4f46e5;"></p>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
-</main>
-
-<footer>
-    <div class="container">
-        <div class="footer-grid">
-            <div>
-                <div class="footer-logo">PRIME CREATIVE</div>
-                <p style="margin-top: 16px; max-width: 260px;">Design, 3D, code — we craft digital excellence for forward-thinking brands.</p>
-            </div>
-            <div>
-                <h4 style="color: white; margin-bottom: 16px;">Explore</h4>
-                <p><a href="#services" style="color:#cbd5e1; text-decoration: none;">Services</a></p>
-                <p><a href="#work" style="color:#cbd5e1; text-decoration: none;">Portfolio</a></p>
-                <p><a href="#contact" style="color:#cbd5e1; text-decoration: none;">Careers</a></p>
-            </div>
-            <div>
-                <h4 style="color: white; margin-bottom: 16px;">Legal</h4>
-                <p style="color:#cbd5e1;">Privacy policy</p>
-                <p style="color:#cbd5e1;">Terms of service</p>
-            </div>
-        </div>
-        <div class="copyright">
-            © 2025 PRIME CREATIVE — All works and brands belong to their respective owners. Crafted with <i class="fas fa-heart" style="color: #f43f5e;"></i> for bold ideas.
         </div>
     </div>
-</footer>
 
-<!-- Simple interactive form handling (frontend demo) -->
-<script>
-    (function() {
-        const form = document.getElementById('inquiryForm');
-        const feedback = document.getElementById('formFeedback');
-        if (form) {
-            form.addEventListener('submit', function(e) {
+    <script>
+        (function() {
+            // ── Translations (main page) ──
+            const translations = {
+                en: {
+                    nav_home: "Home", nav_services: "Services", nav_portfolio: "Portfolio", nav_contact: "Contact", nav_talk: "Let's talk",
+                    hero_badge: "design · 3D · dev", hero_title1: "Where", hero_title2: "vision", hero_title3: "meets<br>execution",
+                    hero_desc: "Graphic design, 3D artistry, websites & apps — we craft digital experiences that resonate. Your brand, elevated.",
+                    hero_btn1: "Start a project", hero_btn2: "Explore services",
+                    graphic_title: "Graphic", graphic_sub: "Identity, print, digital",
+                    "3d_title": "3D", "3d_sub": "Modeling & rendering",
+                    webapp_title: "Web & App", webapp_sub: "Full-stack dev",
+                    marketing_title: "Marketing", marketing_sub: "Digital strategy",
+                    services_title: "What we deliver", services_sub: "Creative solutions that blend aesthetics, technology, and performance",
+                    service1_title: "Graphic Design", service1_desc: "Logos, brand identity, packaging, social media visuals, and print materials that stand out. We create cohesive visual languages.",
+                    service2_title: "3D & Motion", service2_desc: "High-end 3D modeling, product visualization, architectural rendering, and animation. Bring concepts to life with depth & realism.",
+                    service3_title: "Web & App Dev", service3_desc: "Custom websites, e‑commerce, CMS, full‑stack, and cross-platform apps (iOS, Android, Flutter, React Native). From MVP to polished product.",
+                    service4_title: "Digital Marketing", service4_desc: "SEO, social media management, content strategy, paid ads, and analytics. Grow your brand's online presence and convert leads into customers.",
+                    explore: "Explore →",
+                    stat_projects: "Projects Completed", stat_clients: "Happy Clients", stat_years: "Years Excellence", stat_team: "Team Members",
+                    portfolio_title: "Creative showcase", portfolio_sub: "A glimpse of recent magic — design, 3D & digital craft",
+                    gallery1: "Brand Identity", gallery1_sub: "Visual identity system",
+                    gallery2: "3D Furniture", gallery2_sub: "Product viz",
+                    gallery3: "Web Studio", gallery3_sub: "Fashion e‑commerce",
+                    gallery4: "Fintech App", gallery4_sub: "UI/UX + dev",
+                    gallery5: "Social Campaign", gallery5_sub: "Digital marketing",
+                    portfolio_cta: "→ Request full portfolio",
+                    testimonial_title: "What clients say", testimonial_sub: "Trusted by creators & enterprises worldwide",
+                    testimonial1: "\"Prime Creative redesigned our entire brand identity and built a high‑performance e‑commerce site. Sales increased by 140% in 3 months.\"",
+                    author1: "— Sophia Chen", role1: "Creative Director, Lumina",
+                    testimonial2: "\"The 3D product visualizations blew us away. The team's attention to detail and speed is unmatched. Highly recommend for any immersive work.\"",
+                    author2: "— Marcus Velez", role2: "Founder, ModaStudio",
+                    testimonial3: "\"From concept to launch, they delivered a seamless fintech app. Users love the UI/UX. Professional and creative — 10/10.\"",
+                    author3: "— Aisha Khan", role3: "CTO, NimbusPay",
+                    contact_title1: "Let's create something", contact_title2: "remarkable",
+                    contact_desc: "Got a project in mind? Whether it's a complete brand overhaul, a 3D visual, or a complex web/app — let's talk.",
+                    address: "New York / LA · remote worldwide",
+                    form_name: "Full name", form_email: "Email address", form_message: "Tell us about your vision...", form_submit: "Send inquiry →",
+                    service_opt1: "Graphic Design", service_opt2: "3D & Motion", service_opt3: "Web & App Development", service_opt4: "Digital Marketing", service_opt5: "Other / full package",
+                    footer_desc: "Design, 3D, code — we craft digital excellence for forward-thinking brands.",
+                    footer_explore: "Explore", footer_services: "Services", footer_portfolio: "Portfolio", footer_careers: "Careers",
+                    footer_legal: "Legal", footer_privacy: "Privacy policy", footer_terms: "Terms of service",
+                    copyright: "© 2025 PRIME CREATIVE — All works and brands belong to their respective owners. Crafted with",
+                    copyright_end: "for bold ideas."
+                },
+                fr: {
+                    nav_home: "Accueil", nav_services: "Services", nav_portfolio: "Portfolio", nav_contact: "Contact", nav_talk: "Discutons",
+                    hero_badge: "design · 3D · dev", hero_title1: "Là où la", hero_title2: "vision", hero_title3: "rencontre<br>l'exécution",
+                    hero_desc: "Design graphique, art 3D, sites web et applications — nous créons des expériences numériques qui résonnent. Votre marque, élevée.",
+                    hero_btn1: "Commencer un projet", hero_btn2: "Explorer les services",
+                    graphic_title: "Graphique", graphic_sub: "Identité, print, digital",
+                    "3d_title": "3D", "3d_sub": "Modélisation & rendu",
+                    webapp_title: "Web & App", webapp_sub: "Dev full-stack",
+                    marketing_title: "Marketing", marketing_sub: "Stratégie digitale",
+                    services_title: "Ce que nous livrons", services_sub: "Des solutions créatives mêlant esthétique, technologie et performance",
+                    service1_title: "Design Graphique", service1_desc: "Logos, identité de marque, packaging, visuels réseaux sociaux et supports imprimés qui se démarquent. Nous créons des langages visuels cohérents.",
+                    service2_title: "3D & Animation", service2_desc: "Modélisation 3D haut de gamme, visualisation de produits, rendu architectural et animation. Donnez vie à vos concepts avec profondeur et réalisme.",
+                    service3_title: "Dev Web & App", service3_desc: "Sites web sur mesure, e‑commerce, CMS, full-stack et applications cross-platform (iOS, Android, Flutter, React Native). Du MVP au produit abouti.",
+                    service4_title: "Marketing Digital", service4_desc: "SEO, gestion des réseaux sociaux, stratégie de contenu, publicités payantes et analytique. Développez la présence en ligne de votre marque et convertissez les prospects en clients.",
+                    explore: "Explorer →",
+                    stat_projects: "Projets réalisés", stat_clients: "Clients satisfaits", stat_years: "Années d'excellence", stat_team: "Membres de l'équipe",
+                    portfolio_title: "Vitrine créative", portfolio_sub: "Un aperçu de notre magie récente — design, 3D & artisanat numérique",
+                    gallery1: "Identité de marque", gallery1_sub: "Système d'identité",
+                    gallery2: "Mobilier 3D", gallery2_sub: "Visualisation produit",
+                    gallery3: "Studio Web", gallery3_sub: "E‑commerce mode",
+                    gallery4: "App Fintech", gallery4_sub: "UI/UX + dev",
+                    gallery5: "Campagne Sociale", gallery5_sub: "Marketing digital",
+                    portfolio_cta: "→ Demander le portfolio complet",
+                    testimonial_title: "Ce que disent nos clients", testimonial_sub: "Approuvé par les créateurs et entreprises du monde entier",
+                    testimonial1: "« Prime Creative a repensé notre identité de marque et construit un site e‑commerce haute performance. Les ventes ont augmenté de 140% en 3 mois. »",
+                    author1: "— Sophia Chen", role1: "Directrice créative, Lumina",
+                    testimonial2: "« Les visualisations 3D nous ont époustouflés. L'attention aux détails et la rapidité de l'équipe sont inégalées. Je recommande vivement. »",
+                    author2: "— Marcus Velez", role2: "Fondateur, ModaStudio",
+                    testimonial3: "« Du concept au lancement, ils ont livré une application fintech fluide. Les utilisateurs adorent l'UI/UX. Professionnel et créatif — 10/10. »",
+                    author3: "— Aisha Khan", role3: "CTO, NimbusPay",
+                    contact_title1: "Créons quelque chose de", contact_title2: "remarquable",
+                    contact_desc: "Un projet en tête ? Refonte complète de marque, visuel 3D ou application/web complexe — parlons-en.",
+                    address: "New York / LA · remote mondial",
+                    form_name: "Nom complet", form_email: "Adresse e-mail", form_message: "Parlez-nous de votre vision...", form_submit: "Envoyer la demande →",
+                    service_opt1: "Design Graphique", service_opt2: "3D & Animation", service_opt3: "Développement Web & App", service_opt4: "Marketing Digital", service_opt5: "Autre / pack complet",
+                    footer_desc: "Design, 3D, code — nous créons l'excellence numérique pour les marques tournées vers l'avenir.",
+                    footer_explore: "Explorer", footer_services: "Services", footer_portfolio: "Portfolio", footer_careers: "Carrières",
+                    footer_legal: "Juridique", footer_privacy: "Confidentialité", footer_terms: "Conditions d'utilisation",
+                    copyright: "© 2025 PRIME CREATIVE — Toutes les œuvres et marques appartiennent à leurs propriétaires respectifs. Fabriqué avec",
+                    copyright_end: "pour les idées audacieuses."
+                },
+                ht: {
+                    nav_home: "Akèy", nav_services: "Sèvis", nav_portfolio: "Pòtfolyo", nav_contact: "Kontak", nav_talk: "Ann pale",
+                    hero_badge: "design · 3D · dev", hero_title1: "Kote", hero_title2: "vizyon", hero_title3: "rankontre<br>egzekisyon",
+                    hero_desc: "Desen grafik, atis 3D, sit wèb ak aplikasyon — nou kreye eksperyans dijital ki rezone. Mak ou, elve.",
+                    hero_btn1: "Kòmanse yon pwojè", hero_btn2: "Eksplore sèvis yo",
+                    graphic_title: "Grafik", graphic_sub: "Idantite, enprime, dijital",
+                    "3d_title": "3D", "3d_sub": "Modèl ak rann",
+                    webapp_title: "Wèb & App", webapp_sub: "Dev full-stack",
+                    marketing_title: "Maketing", marketing_sub: "Estrateji dijital",
+                    services_title: "Sa nou livre", services_sub: "Solisyon kreyatif ki melanje estetik, teknoloji ak pèfòmans",
+                    service1_title: "Desen Grafik", service1_desc: "Logo, idantite mak, anbalaj, vizyèl rezo sosyal ak materyèl enprime ki kanpe deyò. Nou kreye lang vizyèl koyeran.",
+                    service2_title: "3D & Animasyon", service2_desc: "Modèl 3D wo nivo, vizyalizasyon pwodwi, rann achitekti ak animasyon. Pote konsèp yo nan lavi ak pwofondè ak reyalis.",
+                    service3_title: "Devlopman Wèb & App", service3_desc: "Sit wèb pèsonalize, e-commerce, CMS, full-stack, ak aplikasyon cross-platform (iOS, Android, Flutter, React Native). Soti nan MVP rive nan pwodwi poli.",
+                    service4_title: "Maketing Digital", service4_desc: "SEO, jesyon rezo sosyal, estrateji kontni, piblisite peye, ak analiz. Ogmante prezans ou sou entènèt epi konvèti leads an kliyan.",
+                    explore: "Eksplore →",
+                    stat_projects: "Pwojè konplete", stat_clients: "Kliyan kontan", stat_years: "Ane ekselans", stat_team: "Manm ekip",
+                    portfolio_title: "Vitrin kreyatif", portfolio_sub: "Yon apèsi sou dènye majik nou — desen, 3D & atizana dijital",
+                    gallery1: "Idantite Mak", gallery1_sub: "Sistèm idantite",
+                    gallery2: "Mèb 3D", gallery2_sub: "Vizyalizasyon pwodwi",
+                    gallery3: "Studio Wèb", gallery3_sub: "E-commerce mod",
+                    gallery4: "App Finansyè", gallery4_sub: "UI/UX + dev",
+                    gallery5: "Kanpay Sosyal", gallery5_sub: "Maketing dijital",
+                    portfolio_cta: "→ Mandye pòtfolyo konplè",
+                    testimonial_title: "Sa kliyan yo di", testimonial_sub: "Sèvi ak enèji pa kreyatè ak antrepriz atravè lemond",
+                    testimonial1: "« Prime Creative te repanse tout idantite mak nou epi li te bati yon sit e-commerce wo pèfòmans. Vant yo te ogmante pa 140% nan 3 mwa. »",
+                    author1: "— Sophia Chen", role1: "Direktris Kreyatif, Lumina",
+                    testimonial2: "« Vizyalizasyon 3D yo te sezi nou. Atansyon ekip la sou detay ak vitès se san parèy. Mwen rekòmande anpil pou nenpòt travay immersive. »",
+                    author2: "— Marcus Velez", role2: "Fondatè, ModaStudio",
+                    testimonial3: "« Soti nan konsèp rive nan lansman, yo te livre yon aplikasyon finansyè san pwoblèm. Itilizatè yo renmen UI/UX la. Pwofesyonèl ak kreyatif — 10/10. »",
+                    author3: "— Aisha Khan", role3: "CTO, NimbusPay",
+                    contact_title1: "Ann kreye yon bagay", contact_title2: "remakab",
+                    contact_desc: "Ou gen yon pwojè nan tèt ou? Kit se yon refonte konplè mak, yon vizyèl 3D, oswa yon aplikasyon/sit konplèks — ann pale.",
+                    address: "New York / LA · remote atravè lemond",
+                    form_name: "Non konplè", form_email: "Adrès imèl", form_message: "Pale nou de vizyon ou...", form_submit: "Voye demann lan →",
+                    service_opt1: "Desen Grafik", service_opt2: "3D & Animasyon", service_opt3: "Devlopman Wèb & App", service_opt4: "Maketing Digital", service_opt5: "Lòt / pakè konplè",
+                    footer_desc: "Desen, 3D, kòd — nou kreye ekselans dijital pou mak ki gade pou pi devan.",
+                    footer_explore: "Eksplore", footer_services: "Sèvis", footer_portfolio: "Pòtfolyo", footer_careers: "Karyè",
+                    footer_legal: "Legal", footer_privacy: "Konfidansyalite", footer_terms: "Kondisyon itilizasyon",
+                    copyright: "© 2025 PRIME CREATIVE — Tout travay ak mak apatni a pwopriyetè respektif yo. Fabrike ak",
+                    copyright_end: "pou lide odasye."
+                }
+            };
+
+            // ── Chat translations ──
+            const chatTranslations = {
+                en: {
+                    greeting: "👋 Hi there! I'm Prime AI — your creative assistant. Ask me about our services, pricing, portfolio, or anything else!",
+                    quickReplies: [
+                        { text: "📐 Services", value: "What services do you offer?" },
+                        { text: "💰 Pricing", value: "How much does a project cost?" },
+                        { text: "🎨 Portfolio", value: "Can I see your portfolio?" },
+                        { text: "🚀 Start", value: "How do I start a project?" },
+                        { text: "💬 WhatsApp", value: "I want to speak with a real person" }
+                    ],
+                    headerTitle: "Prime AI Assistant",
+                    headerStatus: "Online · ready to help",
+                    placeholder: "Type your message…",
+                    responses: {
+                        services: "We offer 4 core services:\n• 🎨 Graphic Design — branding, print, social visuals\n• 🧊 3D & Motion — modeling, rendering, animation\n• 💻 Web & App Dev — full-stack, e‑commerce, cross-platform apps\n• 📈 Digital Marketing — SEO, social, ads, strategy\nWhich one interests you most?",
+                        graphic: "🎨 Our graphic design team crafts stunning logos, brand identities, packaging, and social media visuals. We create cohesive visual languages that make brands unforgettable. Want to see some examples?",
+                        threeD: "🧊 Our 3D & Motion studio delivers high-end modeling, product visualization, architectural rendering, and animation. We bring concepts to life with depth and realism. Got a project in mind?",
+                        web: "💻 We build custom websites, e‑commerce platforms, CMS solutions, full‑stack apps, and cross-platform mobile apps (iOS, Android, Flutter, React Native). From MVP to polished product — we've got you covered!",
+                        marketing: "📈 Our digital marketing team boosts your online presence with SEO, social media management, content strategy, paid ads, and analytics. We turn leads into loyal customers. Ready to grow?",
+                        pricing: "💰 Pricing varies by scope:\n• Logo design: starts at $200\n• Full brand package (logo + business card + badge + etc.): $500\n• Website/App: custom, starting from $1k up to $50k+\n• Digital Marketing: starts at $200/month\nWant a custom quote? Tell me more about your project!",
+                        portfolio: "🎨 You can check out our portfolio section on this page! We've done brand identities, 3D furniture renders, fashion e‑commerce sites, fintech apps, and social campaigns. I can also share more tailored examples — what type of work are you looking for?",
+                        start: "🚀 Starting a project is easy! 1️⃣ Reach out via the contact form or email us at hello@primecreative.com. 2️⃣ We'll schedule a discovery call to understand your vision. 3️⃣ We'll send a proposal with timeline and pricing. 4️⃣ Once approved, we bring your idea to life! Ready to take the first step?",
+                        team: "🌟 Prime Creative is a team of designers, 3D artists, developers, and marketing strategists. We've been crafting digital excellence for 6+ years, serving clients from startups to global brands. We're passionate about turning bold ideas into reality!",
+                        contact: "📬 You can reach us at hello@primecreative.com or call +1 (212) 555 0987. We're based in New York and LA, but we work remotely with clients worldwide. Use the contact form on this page — we'll reply within 24h!",
+                        thank: "You're welcome! 🙌 I'm here whenever you need me. Anything else I can help with?",
+                        bye: "Goodbye for now! 👋 Feel free to come back anytime if you have more questions. Have a great day!",
+                        whatsapp: "📱 You can speak with a real customer support agent directly on WhatsApp. Click this link to start a chat: https://wa.me/message/TWWSM72QHJJ4B1",
+                        default: "🤔 Hmm, I'm not sure I understand. Could you rephrase? I can help with services, pricing, portfolio, or starting a project. Or just say 'hello' to chat!"
+                    }
+                },
+                fr: {
+                    greeting: "👋 Bonjour ! Je suis Prime AI — votre assistant créatif. Demandez-moi tout sur nos services, nos prix, notre portfolio ou autre chose !",
+                    quickReplies: [
+                        { text: "📐 Services", value: "Quels services proposez-vous ?" },
+                        { text: "💰 Tarifs", value: "Combien coûte un projet ?" },
+                        { text: "🎨 Portfolio", value: "Puis-je voir votre portfolio ?" },
+                        { text: "🚀 Démarrer", value: "Comment démarrer un projet ?" },
+                        { text: "💬 WhatsApp", value: "Je veux parler à une vraie personne" }
+                    ],
+                    headerTitle: "Assistant Prime AI",
+                    headerStatus: "En ligne · prêt à aider",
+                    placeholder: "Écrivez votre message…",
+                    responses: {
+                        services: "Nous offrons 4 services principaux :\n• 🎨 Design Graphique — branding, print, visuels sociaux\n• 🧊 3D & Animation — modélisation, rendu, animation\n• 💻 Dev Web & App — full-stack, e‑commerce, apps cross-platform\n• 📈 Marketing Digital — SEO, réseaux sociaux, publicité, stratégie\nLequel vous intéresse le plus ?",
+                        graphic: "🎨 Notre équipe de design graphique crée des logos, identités de marque, emballages et visuels sociaux époustouflants. Nous créons des langages visuels cohérents qui rendent les marques inoubliables. Vous voulez voir des exemples ?",
+                        threeD: "🧊 Notre studio 3D & Animation propose de la modélisation haut de gamme, visualisation de produits, rendu architectural et animation. Nous donnons vie aux concepts avec profondeur et réalisme. Vous avez un projet en tête ?",
+                        web: "💻 Nous construisons des sites web sur mesure, des plateformes e‑commerce, des solutions CMS, des applications full‑stack et des applications mobiles cross-platform (iOS, Android, Flutter, React Native). Du MVP au produit fini — nous vous couvrons !",
+                        marketing: "📈 Notre équipe de marketing digital booste votre présence en ligne avec le SEO, la gestion des réseaux sociaux, la stratégie de contenu, les publicités payantes et l'analyse. Nous transformons les prospects en clients fidèles. Prêt à grandir ?",
+                        pricing: "💰 Les tarifs varient selon le périmètre :\n• Création de logo : à partir de 200 $\n• Pack complet (logo + carte de visite + badge + etc.) : 500 $\n• Site web/App : sur mesure, de 1 000 $ à 50 000 $+\n• Marketing Digital : à partir de 200 $/mois\nVous voulez un devis personnalisé ? Parlez-moi de votre projet !",
+                        portfolio: "🎨 Vous pouvez consulter notre section portfolio sur cette page ! Nous avons réalisé des identités de marque, des rendus 3D de meubles, des sites e‑commerce de mode, des applications fintech et des campagnes sociales. Je peux aussi vous montrer des exemples plus ciblés — quel type de travail cherchez-vous ?",
+                        start: "🚀 Démarrer un projet est facile ! 1️⃣ Contactez-nous via le formulaire ou par email à hello@primecreative.com. 2️⃣ Nous planifions un appel de découverte pour comprendre votre vision. 3️⃣ Nous vous envoyons une proposition avec calendrier et tarifs. 4️⃣ Une fois approuvé, nous donnons vie à votre idée ! Prêt à faire le premier pas ?",
+                        team: "🌟 Prime Creative est une équipe de designers, d'artistes 3D, de développeurs et de stratèges marketing. Nous créons l'excellence numérique depuis plus de 6 ans, au service de clients allant des start-ups aux marques mondiales. Nous sommes passionnés par la transformation d'idées audacieuses en réalité !",
+                        contact: "📬 Vous pouvez nous joindre à hello@primecreative.com ou au +1 (212) 555 0987. Nous sommes basés à New York et Los Angeles, mais nous travaillons à distance avec des clients du monde entier. Utilisez le formulaire de contact sur cette page — nous répondons sous 24h !",
+                        thank: "De rien ! 🙌 Je suis là quand vous avez besoin de moi. Autre chose ?",
+                        bye: "Au revoir pour l'instant ! 👋 N'hésitez pas à revenir quand vous voulez si vous avez d'autres questions. Bonne journée !",
+                        whatsapp: "📱 Vous pouvez parler directement avec un agent du support client sur WhatsApp. Cliquez sur ce lien pour démarrer une conversation : https://wa.me/message/TWWSM72QHJJ4B1",
+                        default: "🤔 Hmm, je ne suis pas sûr de comprendre. Pouvez-vous reformuler ? Je peux vous aider sur les services, les prix, le portfolio ou le démarrage d'un projet. Ou dites simplement 'bonjour' pour discuter !"
+                    }
+                },
+                ht: {
+                    greeting: "👋 Bonjou! Mwen se Prime AI — asistan kreyatif ou. Mande m' tout sa w vle konnen sou sèvis nou, pri, pòtfolyo, oswa nenpòt lòt bagay!",
+                    quickReplies: [
+                        { text: "📐 Sèvis", value: "Ki sèvis ou ofri?" },
+                        { text: "💰 Pri", value: "Konbyen yon pwojè koute?" },
+                        { text: "🎨 Pòtfolyo", value: "Eske mwen ka wè pòtfolyo ou?" },
+                        { text: "🚀 Kòmanse", value: "Kòman pou m kòmanse yon pwojè?" },
+                        { text: "💬 WhatsApp", value: "Mwen vle pale ak yon moun reyèl" }
+                    ],
+                    headerTitle: "Asistan Prime AI",
+                    headerStatus: "An liy · pare pou ede",
+                    placeholder: "Mete mesaj ou…",
+                    responses: {
+                        services: "Nou ofri 4 sèvis prensipal:\n• 🎨 Desen Grafik — branding, enprime, vizyèl sosyal\n• 🧊 3D & Animasyon — modèl, rann, animasyon\n• 💻 Dev Wèb & App — full-stack, e-commerce, apps cross-platform\n• 📈 Maketing Digital — SEO, rezo sosyal, piblisite, estrateji\nKilès ki enterese ou plis?",
+                        graphic: "🎨 Ekip desen grafik nou kreye logo, idantite mak, anbalaj, ak vizyèl rezo sosyal ki estrawòdinè. Nou kreye lang vizyèl koyeran ki fè mak yo inoubliyab. Ou vle wè kèk egzanp?",
+                        threeD: "🧊 Studio 3D & Animasyon nou ofri modèl wo nivo, vizyalizasyon pwodwi, rann achitekti, ak animasyon. Nou pote konsèp yo nan lavi ak pwofondè ak reyalis. Ou gen yon pwojè nan tèt ou?",
+                        web: "💻 Nou bati sit wèb pèsonalize, platfòm e-commerce, solisyon CMS, apps full-stack, ak apps mobil cross-platform (iOS, Android, Flutter, React Native). Soti nan MVP rive nan pwodwi fini — nou kouvri tout!",
+                        marketing: "📈 Ekip maketing dijital nou ogmante prezans ou sou entènèt ak SEO, jesyon rezo sosyal, estrateji kontni, piblisite peye, ak analiz. Nou konvèti leads an kliyan fidèl. Ou pare pou grandi?",
+                        pricing: "💰 Pri yo varye selon pwojè a:\n• Kreyasyon logo: kòmanse nan $200\n• Pakè konplè (logo + kat biznis + badj + elatriye): $500\n• Sit wèb/App: sou mezi, soti nan $1,000 rive $50,000+\n• Maketing Digital: kòmanse nan $200/mwa\nOu vle yon estimasyon pèsonalize? Di m plis sou pwojè ou!",
+                        portfolio: "🎨 Ou ka gade seksyon pòtfolyo nou sou paj sa! Nou te fè idantite mak, rann 3D mèb, sit e-commerce mòd, apps finansyè, ak kanpay sosyal. Mwen ka pataje plis egzanp adapte — ki kalite travay w ap chèche?",
+                        start: "🚀 Kòmanse yon pwojè fasil! 1️⃣ Kontakte nou via fòmilè a oswa imèl hello@primecreative.com. 2️⃣ Nou pran yon apèl dekouvèt pou konprann vizyon ou. 3️⃣ Nou voye yon pwopozisyon ak delè ak pri. 4️⃣ Yon fwa apwouve, nou bay lide ou lavi! Ou pare pou premye etap la?",
+                        team: "🌟 Prime Creative se yon ekip designer, atis 3D, developè, ak estratejis maketing. Nou kree ekselans dijital depi plis pase 6 an, pou kliyan ki soti nan start-up rive nan mak mondyal. Nou pasyone pou fè lide odasye vin reyalite!",
+                        contact: "📬 Ou ka kontakte nou nan hello@primecreative.com oswa +1 (212) 555 0987. Nou baze nan New York ak Los Angeles, men nou travay aleka ak kliyan atravè lemond. Sèvi ak fòmilè kontak sou paj sa — nou reponn nan lespas 24h!",
+                        thank: "Padekoua! 🙌 Mwen la chak fwa ou bezwen mwen. Yon lòt bagay?",
+                        bye: "Orevwa pou kounye a! 👋 Ou lib pou retounen nenpòt lè si w gen plis kesyon. Pase yon bon jounen!",
+                        whatsapp: "📱 Ou ka pale dirèkteman ak yon ajan sipò kliyan sou WhatsApp. Klike sou lyen sa a pou kòmanse yon konvèsasyon: https://wa.me/message/TWWSM72QHJJ4B1",
+                        default: "🤔 Hmm, mwen pa konprann byen. Èske ou ka repete? Mwen kapab ede w sou sèvis, pri, pòtfolyo, oswa kòmanse yon pwojè. Oswa jis di 'bonjou' pou pale!"
+                    }
+                }
+            };
+
+            let currentLang = 'en';
+
+            // ── Apply main page language (fixed) ──
+            function applyLanguage(lang) {
+                if (!translations[lang]) {
+                    // fallback to English if translation missing
+                    lang = 'en';
+                }
+                // Update all data-translate elements
+                document.querySelectorAll('[data-translate]').forEach(el => {
+                    const key = el.getAttribute('data-translate');
+                    if (translations[lang] && translations[lang][key] !== undefined) {
+                        // For input/textarea/select, we don't set innerHTML, but we handle placeholders separately
+                        if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA' || el.tagName === 'SELECT') {
+                            // do nothing here, placeholders handled below
+                        } else {
+                            el.innerHTML = translations[lang][key];
+                        }
+                    }
+                });
+                // Update placeholders
+                document.querySelectorAll('[data-translate-placeholder]').forEach(el => {
+                    const key = el.getAttribute('data-translate-placeholder');
+                    if (translations[lang] && translations[lang][key] !== undefined) {
+                        el.placeholder = translations[lang][key];
+                    }
+                });
+                // Update active state of main language buttons
+                document.querySelectorAll('.lang-btn').forEach(btn => {
+                    btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
+                });
+                // Update current language variable
+                currentLang = lang;
+                // Also update the chat UI to match
+                updateChatLanguage(lang);
+            }
+
+            // ── Update chat UI ──
+            function updateChatLanguage(lang) {
+                const t = chatTranslations[lang] || chatTranslations.en;
+                document.getElementById('chatHeaderTitle').textContent = t.headerTitle;
+                document.getElementById('chatHeaderStatus').textContent = t.headerStatus;
+                document.getElementById('chatInput').placeholder = t.placeholder;
+                // Rebuild quick replies
+                const container = document.getElementById('quickReplies');
+                container.innerHTML = '';
+                t.quickReplies.forEach(q => {
+                    const btn = document.createElement('button');
+                    btn.className = 'quick-reply-btn';
+                    if (q.text.includes('WhatsApp')) btn.classList.add('whatsapp-btn');
+                    btn.textContent = q.text;
+                    btn.setAttribute('data-text', q.value);
+                    container.appendChild(btn);
+                });
+                // Update first greeting if it's the only message
+                const msgs = document.getElementById('chatMessages');
+                const firstMsg = msgs.querySelector('.msg.bot');
+                if (firstMsg && msgs.children.length === 1) {
+                    firstMsg.innerHTML = t.greeting + ' <span class="msg-time">' + new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) + '</span>';
+                }
+                // Update chat language picker active state
+                document.querySelectorAll('#chatLangPicker button').forEach(btn => {
+                    btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
+                });
+            }
+
+            // ── Get chat response (rule-based) ──
+            function getChatResponse(text, lang) {
+                const t = chatTranslations[lang] || chatTranslations.en;
+                const lower = text.toLowerCase();
+                if (lower.includes('whatsapp') || lower.includes('real person') || lower.includes('speak with a real') ||
+                    lower.includes('pale ak yon moun') || lower.includes('parler à une vraie personne')) {
+                    return t.responses.whatsapp;
+                }
+                if (lower.includes('service') || lower.includes('offer') || lower.includes('do you do') || lower.includes('what can you') || lower.includes('capabilities') ||
+                    lower.includes('sèvis') || lower.includes('ofri') || lower.includes('services') || lower.includes('proposez')) {
+                    return t.responses.services;
+                }
+                if (lower.includes('graphic') || lower.includes('logo') || lower.includes('brand') || lower.includes('identity') || lower.includes('print') || lower.includes('packaging') ||
+                    lower.includes('desen') || lower.includes('idantite') || lower.includes('design') || lower.includes('identité')) {
+                    return t.responses.graphic;
+                }
+                if (lower.includes('3d') || lower.includes('model') || lower.includes('render') || lower.includes('motion') || lower.includes('animation') || lower.includes('visualization') ||
+                    lower.includes('modèl') || lower.includes('rann') || lower.includes('animasyon')) {
+                    return t.responses.threeD;
+                }
+                if (lower.includes('web') || lower.includes('app') || lower.includes('website') || lower.includes('ecommerce') || lower.includes('e-commerce') || lower.includes('cms') || lower.includes('full-stack') || lower.includes('mobile') ||
+                    lower.includes('sit wèb') || lower.includes('devlopman') || lower.includes('site web')) {
+                    return t.responses.web;
+                }
+                if (lower.includes('marketing') || lower.includes('seo') || lower.includes('social media') || lower.includes('ads') || lower.includes('analytics') || lower.includes('content') ||
+                    lower.includes('maketing') || lower.includes('digital') || lower.includes('réseaux')) {
+                    return t.responses.marketing;
+                }
+                if (lower.includes('price') || lower.includes('cost') || lower.includes('how much') || lower.includes('quote') || lower.includes('budget') || lower.includes('pricing') || lower.includes('affordable') ||
+                    lower.includes('pri') || lower.includes('koute') || lower.includes('tarifs') || lower.includes('combien')) {
+                    return t.responses.pricing;
+                }
+                if (lower.includes('portfolio') || lower.includes('examples') || lower.includes('work') || lower.includes('showcase') || lower.includes('past project') || lower.includes('gallery') ||
+                    lower.includes('pòtfolyo') || lower.includes('travay') || lower.includes('exemples')) {
+                    return t.responses.portfolio;
+                }
+                if (lower.includes('start') || lower.includes('begin') || lower.includes('how to') || lower.includes('process') || lower.includes('project') || lower.includes('engage') || lower.includes('hire') ||
+                    lower.includes('kòmanse') || lower.includes('démarrer') || lower.includes('comment')) {
+                    return t.responses.start;
+                }
+                if (lower.includes('team') || lower.includes('about') || lower.includes('company') || lower.includes('who are you') || lower.includes('experience') ||
+                    lower.includes('ekip') || lower.includes('sou') || lower.includes('équipe')) {
+                    return t.responses.team;
+                }
+                if (lower.includes('contact') || lower.includes('email') || lower.includes('phone') || lower.includes('reach') || lower.includes('address') ||
+                    lower.includes('kontak') || lower.includes('imèl') || lower.includes('téléphone')) {
+                    return t.responses.contact;
+                }
+                if (lower.includes('thank') || lower.includes('thanks') || lower.includes('appreciate') || lower.includes('grateful') ||
+                    lower.includes('mèsi') || lower.includes('merci')) {
+                    return t.responses.thank;
+                }
+                if (lower.includes('bye') || lower.includes('goodbye') || lower.includes('see you') || lower.includes('later') || lower.includes('ciao') ||
+                    lower.includes('orevwa') || lower.includes('au revoir')) {
+                    return t.responses.bye;
+                }
+                return t.responses.default;
+            }
+
+            // ── Chat DOM ──
+            const chatToggle = document.getElementById('chatToggle');
+            const chatWindow = document.getElementById('chatWindow');
+            const chatCloseBtn = document.getElementById('chatCloseBtn');
+            const chatMessages = document.getElementById('chatMessages');
+            const chatInput = document.getElementById('chatInput');
+            const chatSendBtn = document.getElementById('chatSendBtn');
+            const quickReplies = document.getElementById('quickReplies');
+            const settingsBtn = document.getElementById('chatSettingsBtn');
+            const settingsOverlay = document.getElementById('chatSettingsOverlay');
+            const settingsCancel = document.getElementById('settingsCancel');
+            const settingsSave = document.getElementById('settingsSave');
+            const apiKeyInput = document.getElementById('apiKeyInput');
+            const modelSelect = document.getElementById('modelSelect');
+            const chatLangPicker = document.getElementById('chatLangPicker');
+
+            let isOpen = false;
+            let isProcessing = false;
+            let useAPI = false;
+            let apiKey = localStorage.getItem('prime_chat_api_key') || '';
+            let selectedModel = localStorage.getItem('prime_chat_model') || 'google/gemini-2.0-flash-exp:free';
+            if (apiKey) { apiKeyInput.value = apiKey; useAPI = true; }
+            modelSelect.value = selectedModel;
+
+            // ── Chat language picker ──
+            chatLangPicker.addEventListener('click', (e) => {
+                const btn = e.target.closest('button');
+                if (!btn) return;
+                const lang = btn.getAttribute('data-lang');
+                // Update chat picker active state
+                chatLangPicker.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                // Apply to main page and chat
+                applyLanguage(lang);
+                // Add confirmation message
+                const langName = { en: 'English', fr: 'French', ht: 'Kreyol' } [lang];
+                addMessage(`🌐 Language switched to ${langName}. How can I help you?`, 'bot');
+            });
+
+            // ── Message functions ──
+            function addMessage(text, sender, time) {
+                const div = document.createElement('div');
+                div.className = `msg ${sender}`;
+                if (sender === 'bot' && text === 'typing') {
+                    div.innerHTML = `<div class="msg-typing"><span></span><span></span><span></span></div>`;
+                    div.id = 'typingIndicator';
+                } else {
+                    div.textContent = text;
+                    const span = document.createElement('span');
+                    span.className = 'msg-time';
+                    span.textContent = time || new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                    div.appendChild(span);
+                }
+                chatMessages.appendChild(div);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+
+            function removeTyping() {
+                const typing = document.getElementById('typingIndicator');
+                if (typing) typing.remove();
+            }
+
+            async function sendMessage(text) {
+                if (!text.trim() || isProcessing) return;
+                isProcessing = true;
+                chatSendBtn.disabled = true;
+                addMessage(text.trim(), 'user');
+                chatInput.value = '';
+                chatInput.style.height = 'auto';
+                addMessage('typing', 'bot');
+                try {
+                    let reply;
+                    if (useAPI && apiKey) {
+                        const lang = currentLang;
+                        const systemPrompt = `You are Prime AI, a friendly assistant for Prime Creative. 
+                        Respond in ${lang === 'fr' ? 'French' : lang === 'ht' ? 'Haitian Creole' : 'English'}.
+                        Keep responses concise (2-4 sentences). 
+                        If asked about pricing: logo $200, full package $500, website/app starts at $1k to $50k+, marketing starts at $200.
+                        If asked about WhatsApp, direct them to https://wa.me/message/TWWSM72QHJJ4B1.
+                        Be warm and professional.`;
+                        reply = await callOpenRouter(text, systemPrompt);
+                    } else {
+                        await new Promise(r => setTimeout(r, 400 + Math.random() * 600));
+                        reply = getChatResponse(text, currentLang);
+                    }
+                    removeTyping();
+                    addMessage(reply, 'bot');
+                } catch (err) {
+                    removeTyping();
+                    const fallback = getChatResponse(text, currentLang);
+                    addMessage("⚠️ Oops, something went wrong. I'll fall back to my built-in knowledge. " + fallback, 'bot');
+                    console.error('Chat error:', err);
+                }
+                isProcessing = false;
+                chatSendBtn.disabled = false;
+                chatInput.focus();
+            }
+
+            async function callOpenRouter(text, systemPrompt) {
+                const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${apiKey}` },
+                    body: JSON.stringify({
+                        model: selectedModel,
+                        messages: [{ role: 'system', content: systemPrompt }, { role: 'user', content: text }],
+                        temperature: 0.7,
+                        max_tokens: 200,
+                    })
+                });
+                if (!response.ok) { const err = await response.text(); throw new Error(`API error ${response.status}: ${err}`); }
+                const data = await response.json();
+                return data.choices?.[0]?.message?.content?.trim() || "Hmm, I didn't get a proper response. Let me try again — what can I help you with?";
+            }
+
+            // ── Toggle chat ──
+            function toggleChat(open) {
+                isOpen = (open !== undefined) ? open : !isOpen;
+                chatWindow.classList.toggle('open', isOpen);
+                if (isOpen) chatInput.focus();
+            }
+            chatToggle.addEventListener('click', () => toggleChat());
+            chatCloseBtn.addEventListener('click', () => toggleChat(false));
+
+            chatSendBtn.addEventListener('click', () => sendMessage(chatInput.value));
+            chatInput.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(chatInput.value); }
+            });
+            chatInput.addEventListener('input', () => {
+                chatInput.style.height = 'auto';
+                chatInput.style.height = Math.min(chatInput.scrollHeight, 100) + 'px';
+            });
+
+            quickReplies.addEventListener('click', (e) => {
+                const btn = e.target.closest('.quick-reply-btn');
+                if (btn) { const text = btn.getAttribute('data-text'); if (text) sendMessage(text); }
+            });
+
+            settingsBtn.addEventListener('click', () => { settingsOverlay.classList.add('open'); apiKeyInput.value = apiKey;
+                modelSelect.value = selectedModel; });
+            settingsCancel.addEventListener('click', () => { settingsOverlay.classList.remove('open'); });
+            settingsOverlay.addEventListener('click', (e) => { if (e.target === settingsOverlay) settingsOverlay.classList.remove(
+                    'open'); });
+            settingsSave.addEventListener('click', () => {
+                const key = apiKeyInput.value.trim();
+                apiKey = key; useAPI = !!key;
+                localStorage.setItem('prime_chat_api_key', key);
+                selectedModel = modelSelect.value;
+                localStorage.setItem('prime_chat_model', selectedModel);
+                settingsOverlay.classList.remove('open');
+                addMessage(useAPI ? "🔌 AI mode enabled! I'll now use real AI for smarter responses." :
+                    "🧠 Switched to built-in assistant mode. I'll still answer all your questions!", 'bot');
+            });
+
+            document.addEventListener('click', (e) => {
+                const widget = document.getElementById('chatWidget');
+                if (isOpen && widget && !widget.contains(e.target) && e.target !== chatToggle) {
+                    if (settingsOverlay.classList.contains('open')) return;
+                    toggleChat(false);
+                }
+            });
+
+            // ── Init ──
+            // Set default language (en) and apply to chat
+            applyLanguage('en');
+
+            // Add initial greeting
+            const initialGreeting = chatTranslations.en.greeting;
+            const msgDiv = document.createElement('div');
+            msgDiv.className = 'msg bot';
+            msgDiv.innerHTML = initialGreeting + ' <span class="msg-time">' + new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) + '</span>';
+            chatMessages.appendChild(msgDiv);
+
+            // ── Main page language picker (navbar) ──
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    const lang = this.getAttribute('data-lang');
+                    applyLanguage(lang);
+                    // Also update chat language picker to match
+                    document.querySelectorAll('#chatLangPicker button').forEach(b => {
+                        b.classList.toggle('active', b.getAttribute('data-lang') === lang);
+                    });
+                });
+            });
+
+            // ── Back to top ──
+            const backBtn = document.getElementById('backToTop');
+            window.addEventListener('scroll', () => backBtn.classList.toggle('show', window.scrollY > 400));
+            backBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+            // ── Mobile menu ──
+            const menuToggle = document.getElementById('menuToggle');
+            const navLinks = document.getElementById('navLinks');
+            menuToggle.addEventListener('click', () => navLinks.classList.toggle('open'));
+            document.addEventListener('click', (e) => {
+                if (!navLinks.contains(e.target) && !menuToggle.contains(e.target)) navLinks.classList.remove('open');
+            });
+
+            // ── Dark mode ──
+            const darkToggle = document.getElementById('darkModeToggle');
+            if (localStorage.getItem('theme') === 'dark') document.body.classList.add('dark');
+            darkToggle.addEventListener('click', () => {
+                document.body.classList.toggle('dark');
+                localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
+                darkToggle.innerHTML = document.body.classList.contains('dark') ? '<i class="fas fa-sun"></i> <span>Light</span>' :
+                    '<i class="fas fa-moon"></i> <span>Dark</span>';
+            });
+
+            // ── Scroll reveal ──
+            document.querySelectorAll('.fade-up').forEach(el => {
+                new IntersectionObserver((entries, obs) => {
+                    entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('revealed');
+                            obs.unobserve(entry.target); } });
+                }, { threshold: 0.1 }).observe(el);
+            });
+
+            // ── Stats counter ──
+            let counted = false;
+            const statNumbers = document.querySelectorAll('.stat-number');
+            const statsObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting && !counted) {
+                        counted = true;
+                        statNumbers.forEach(stat => {
+                            const target = parseInt(stat.getAttribute('data-target'));
+                            let current = 0;
+                            const increment = target / 60;
+                            const update = () => { current += increment; if (current < target) { stat.innerText =
+                                    Math.floor(current); requestAnimationFrame(update); } else stat.innerText =
+                                    target; };
+                            update();
+                        });
+                        statsObserver.disconnect();
+                    }
+                });
+            }, { threshold: 0.3 });
+            const statsContainer = document.getElementById('statsContainer');
+            if (statsContainer) statsObserver.observe(statsContainer);
+
+            // ── Form handler ──
+            const form = document.getElementById('inquiryForm');
+            const feedback = document.getElementById('formFeedback');
+            form.addEventListener('submit', (e) => {
                 e.preventDefault();
                 const name = document.getElementById('name')?.value.trim();
                 const email = document.getElementById('email')?.value.trim();
-                const service = document.getElementById('serviceInterest')?.value;
-                const message = document.getElementById('message')?.value.trim();
-
                 if (!name || !email) {
-                    feedback.textContent = '❌ Please fill in your name and email.';
+                    feedback.textContent = '❌ Please fill name and email.';
                     feedback.style.color = '#e11d48';
                     return;
                 }
-                if (!email.includes('@') || !email.includes('.')) {
-                    feedback.textContent = '❌ Enter a valid email address.';
+                if (!email.includes('@')) {
+                    feedback.textContent = '❌ Valid email required.';
                     feedback.style.color = '#e11d48';
                     return;
                 }
-                // Simulate success (no backend, but gives professional feedback)
-                feedback.innerHTML = `✨ Thanks ${name}! We received your ${service} inquiry. We'll reply within 24h.`;
+                feedback.innerHTML = '✨ Thanks! We\'ll reply within 24h.';
                 feedback.style.color = '#10b981';
                 form.reset();
-                setTimeout(() => {
-                    feedback.textContent = '';
-                }, 5000);
+                setTimeout(() => feedback.textContent = '', 4000);
             });
-        }
 
-        // smooth anchor scroll
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                const targetId = this.getAttribute('href');
-                if (targetId === "#" || targetId === "") return;
-                const targetElement = document.querySelector(targetId);
-                if (targetElement) {
-                    e.preventDefault();
-                    targetElement.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
+            // ── Smooth scroll ──
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    const targetId = this.getAttribute('href');
+                    if (targetId === "#" || targetId === "") return;
+                    const target = document.querySelector(targetId);
+                    if (target) {
+                        e.preventDefault();
+                        if (navLinks.classList.contains('open')) navLinks.classList.remove('open');
+                        target.scrollIntoView({ behavior: 'smooth' });
+                    }
+                });
             });
-        });
-    })();
-</script>
+
+            console.log('🚀 Prime Creative — fully loaded. Language switching fixed.');
+        })();
+    </script>
 </body>
-</html>
+                                        </html>
