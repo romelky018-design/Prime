@@ -207,6 +207,303 @@
             .chat-lang-picker button { font-size: 0.55rem; padding: 2px 6px; }
             .chat-header { padding: 12px 16px; }
         }
+
+        /* ─── PORTFOLIO SLIDESHOW (Integrated) ─── */
+        .slideshow-wrapper {
+            max-width: 1100px;
+            margin: 0 auto 40px auto;
+            background: var(--bg-secondary);
+            border-radius: 32px;
+            padding: 28px 28px 20px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-light);
+            transition: box-shadow 0.4s, background 0.3s;
+        }
+        .slideshow-wrapper:hover { box-shadow: var(--shadow-md); }
+
+        .slideshow-wrapper .portfolio-header {
+            text-align: center;
+            margin-bottom: 22px;
+        }
+        .slideshow-wrapper .main-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            color: var(--text-primary);
+            text-shadow: 0 2px 20px rgba(79,70,229,0.08);
+        }
+        .slideshow-wrapper .main-title span { color: var(--accent); }
+
+        .slide-viewport {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            border-radius: 20px;
+            overflow: hidden;
+            background: var(--bg-primary);
+            cursor: pointer;
+            perspective: 1200px;
+            touch-action: none;
+            border: 1px solid var(--border-light);
+        }
+        .slide {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            border-radius: 16px;
+            overflow: hidden;
+            transition: transform 0.85s cubic-bezier(0.22, 0.61, 0.36, 1),
+                        opacity 0.85s cubic-bezier(0.22, 0.61, 0.36, 1),
+                        box-shadow 0.85s cubic-bezier(0.22, 0.61, 0.36, 1);
+            will-change: transform, opacity;
+            backface-visibility: hidden;
+            box-shadow: 0 10px 30px -10px rgba(0,0,0,0.5);
+        }
+        .slide img {
+            width: 110%; height: 110%;
+            object-fit: cover; display: block;
+            transition: transform 0.85s cubic-bezier(0.22, 0.61, 0.36, 1);
+            will-change: transform;
+            position: relative; left: -5%; top: -5%;
+        }
+        .click-hint {
+            position: absolute; bottom: 24px; right: 24px;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+            padding: 6px 16px; border-radius: 40px;
+            font-size: 0.7rem; color: rgba(255,255,255,0.5);
+            border: 1px solid rgba(255,255,255,0.06);
+            pointer-events: none; letter-spacing: 0.4px; text-transform: uppercase;
+            opacity: 0; transition: opacity 0.6s ease 0.2s; z-index: 10;
+        }
+        .slide.active .click-hint { opacity: 1; }
+
+        .progress-bar-container {
+            width: 100%; height: 3px;
+            background: var(--border-medium);
+            border-radius: 2px; margin-top: 6px;
+            overflow: hidden; position: relative;
+        }
+        .progress-bar {
+            height: 100%; width: 100%;
+            background: var(--accent);
+            border-radius: 2px;
+            box-shadow: 0 0 12px rgba(79,70,229,0.3);
+            will-change: transform;
+            transform: scaleX(0);
+            transform-origin: left;
+        }
+
+        .controls-bar {
+            display: flex; justify-content: space-between;
+            align-items: center; margin-top: 14px; padding: 0 6px;
+        }
+        .dots { display: flex; gap: 10px; align-items: center; }
+        .dot {
+            width: 10px; height: 10px; border-radius: 50%;
+            background: var(--border-medium);
+            border: none; cursor: pointer;
+            transition: all 0.35s ease; padding: 0; flex-shrink: 0;
+        }
+        .dot.active { background: var(--accent); box-shadow: 0 0 20px rgba(79,70,229,0.4); transform: scale(1.25); }
+        .dot:hover { background: var(--text-muted); transform: scale(1.1); }
+
+        .nav-buttons { display: flex; gap: 12px; align-items: center; }
+        .nav-btn {
+            background: var(--bg-primary); border: 1px solid var(--border-medium);
+            color: var(--text-secondary); width: 44px; height: 44px;
+            border-radius: 50%; font-size: 1.3rem; cursor: pointer;
+            transition: all 0.25s ease; display: flex; align-items: center;
+            justify-content: center; font-weight: 300; line-height: 1;
+            backdrop-filter: blur(4px);
+        }
+        .nav-btn:hover { background: var(--accent); color: #fff; transform: scale(1.06); border-color: var(--accent); }
+        .nav-btn:active { transform: scale(0.92); }
+
+        .slide-counter {
+            color: var(--text-muted); font-size: 0.9rem;
+            font-weight: 600; letter-spacing: 0.5px;
+            min-width: 30px; text-align: center;
+            font-variant-numeric: tabular-nums;
+        }
+        .fullscreen-btn {
+            background: var(--bg-primary); border: 1px solid var(--border-medium);
+            color: var(--text-secondary); width: 44px; height: 44px;
+            border-radius: 50%; font-size: 1.2rem; cursor: pointer;
+            transition: all 0.25s ease; display: flex; align-items: center; justify-content: center;
+        }
+        .fullscreen-btn:hover { background: var(--accent); color: #fff; transform: scale(1.06); border-color: var(--accent); }
+        .fullscreen-btn:active { transform: scale(0.92); }
+
+        .portfolio-categories {
+            display: flex; justify-content: center; align-items: center;
+            gap: 0; margin-top: 20px; padding: 8px 0 4px 0;
+        }
+        .category-item {
+            text-align: center; padding: 4px 24px; min-width: 140px;
+            transition: color 0.4s ease; color: var(--text-muted);
+            cursor: pointer; user-select: none; position: relative;
+        }
+        .category-item:hover { color: var(--text-secondary); }
+        .category-item .cat-main { display: block; font-size: 0.95rem; font-weight: 500; letter-spacing: 0.5px; text-transform: uppercase; color: inherit; }
+        .category-item .cat-sub { display: block; font-size: 0.75rem; font-weight: 400; letter-spacing: 0.3px; text-transform: uppercase; color: inherit; opacity: 0.7; margin-top: 1px; }
+        .category-item.active { color: var(--accent); }
+        .category-item.active .cat-sub { opacity: 1; }
+        .category-divider { width: 1px; height: 40px; background: var(--border-medium); flex-shrink: 0; }
+
+        .thumbnail-strip-wrapper {
+            position: relative; margin-top: 10px; overflow: hidden;
+        }
+        .thumbnail-strip-wrapper::before,
+        .thumbnail-strip-wrapper::after {
+            content: ''; position: absolute; top: 0; bottom: 0; width: 40px; z-index: 2; pointer-events: none;
+        }
+        .thumbnail-strip-wrapper::before { left: 0; background: linear-gradient(to right, var(--bg-secondary), transparent); }
+        .thumbnail-strip-wrapper::after { right: 0; background: linear-gradient(to left, var(--bg-secondary), transparent); }
+
+        .thumbnail-strip {
+            display: flex; gap: 8px; overflow-x: auto;
+            padding: 10px 40px 6px 40px;
+            scrollbar-width: thin; scrollbar-color: var(--border-medium) transparent;
+            -webkit-overflow-scrolling: touch;
+        }
+        .thumbnail-strip::-webkit-scrollbar { height: 4px; }
+        .thumbnail-strip::-webkit-scrollbar-track { background: transparent; }
+        .thumbnail-strip::-webkit-scrollbar-thumb { background: var(--border-medium); border-radius: 10px; }
+
+        .thumbnail-strip img {
+            height: 60px; width: 60px; object-fit: cover; border-radius: 8px;
+            cursor: pointer; border: 2px solid transparent;
+            transition: border-color 0.3s ease, transform 0.3s ease, filter 0.3s ease;
+            flex-shrink: 0; filter: brightness(0.7) saturate(0.8);
+        }
+        .thumbnail-strip img:hover { transform: scale(1.05); filter: brightness(1) saturate(1); }
+        .thumbnail-strip img.active { border-color: var(--accent); box-shadow: 0 0 20px rgba(79,70,229,0.3); filter: brightness(1) saturate(1); }
+
+        /* Lightbox */
+        .lightbox-overlay {
+            display: none; position: fixed; inset: 0;
+            background: rgba(0,0,0,0.92); backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px); z-index: 2000;
+            justify-content: center; align-items: center; padding: 20px;
+            animation: fadeIn 0.4s ease;
+        }
+        .lightbox-overlay.open { display: flex; }
+        .lightbox-content {
+            position: relative; max-width: 90vw; max-height: 90vh;
+            display: flex; flex-direction: column; align-items: center;
+            justify-content: center; width: 100%; height: 100%;
+        }
+        .lightbox-img-container {
+            position: relative; width: 100%; height: 80vh;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .lightbox-img-container img {
+            max-width: 100%; max-height: 100%; object-fit: contain;
+            border-radius: 12px; box-shadow: 0 20px 60px rgba(0,0,0,0.8);
+            animation: slideUp 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .lightbox-info {
+            color: #fff; text-align: center; margin-top: 16px; max-width: 600px;
+        }
+        .lightbox-info h2 { font-size: 1.6rem; font-weight: 600; margin-bottom: 2px; }
+        .lightbox-info .lightbox-sub {
+            font-size: 0.85rem; color: #8a94b0;
+            display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;
+        }
+        .lightbox-info .lightbox-sub span {
+            background: #252e42; padding: 2px 14px; border-radius: 30px;
+            font-size: 0.7rem; color: #b0bedc;
+        }
+        .lightbox-info p { font-size: 0.95rem; color: #c8d0e4; margin-top: 6px; line-height: 1.6; }
+
+        .lightbox-nav {
+            position: absolute; top: 50%; transform: translateY(-50%);
+            background: rgba(255,255,255,0.08); backdrop-filter: blur(8px);
+            border: 1px solid rgba(255,255,255,0.1); color: #fff;
+            width: 56px; height: 56px; border-radius: 50%; font-size: 1.8rem;
+            cursor: pointer; transition: all 0.25s ease;
+            display: flex; align-items: center; justify-content: center; z-index: 10;
+        }
+        .lightbox-nav:hover { background: rgba(255,255,255,0.15); transform: translateY(-50%) scale(1.05); }
+        .lightbox-nav.prev { left: 10px; }
+        .lightbox-nav.next { right: 10px; }
+
+        .lightbox-close {
+            position: absolute; top: 20px; right: 30px;
+            background: rgba(255,255,255,0.08); backdrop-filter: blur(8px);
+            border: 1px solid rgba(255,255,255,0.1); color: #fff;
+            width: 48px; height: 48px; border-radius: 50%; font-size: 1.5rem;
+            cursor: pointer; transition: all 0.25s ease;
+            display: flex; align-items: center; justify-content: center; z-index: 10;
+        }
+        .lightbox-close:hover { background: rgba(255,255,255,0.15); transform: scale(1.05); }
+        .lightbox-counter {
+            position: absolute; bottom: 20px; right: 30px;
+            color: rgba(255,255,255,0.4); font-size: 0.8rem;
+            letter-spacing: 0.5px; background: rgba(0,0,0,0.3);
+            padding: 4px 12px; border-radius: 20px; backdrop-filter: blur(4px);
+        }
+        .lightbox-link {
+            display: inline-block; background: #1e2535; color: var(--accent);
+            padding: 6px 18px; border-radius: 40px; text-decoration: none;
+            font-size: 0.8rem; font-weight: 500; border: 1px solid #2a3248;
+            transition: background 0.2s, color 0.2s; margin-top: 6px;
+        }
+        .lightbox-link:hover { background: #2a3248; color: var(--accent-hover); }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px) scale(0.96); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        @media (max-width: 768px) {
+            .slideshow-wrapper { padding: 16px; border-radius: 20px; }
+            .slide-viewport { border-radius: 14px; }
+            .click-hint { display: none; }
+            .controls-bar { flex-wrap: wrap; gap: 10px; justify-content: center; }
+            .nav-btn { width: 38px; height: 38px; font-size: 1.1rem; }
+            .fullscreen-btn { width: 38px; height: 38px; font-size: 1rem; }
+            .slideshow-wrapper .main-title { font-size: 1.6rem; }
+            .category-item { min-width: 80px; padding: 4px 12px; }
+            .category-item .cat-main { font-size: 0.75rem; }
+            .category-item .cat-sub { font-size: 0.6rem; }
+            .category-divider { height: 30px; }
+            .thumbnail-strip { padding: 10px 30px 6px 30px; }
+            .thumbnail-strip img { height: 50px; width: 50px; }
+            .thumbnail-strip-wrapper::before, .thumbnail-strip-wrapper::after { width: 30px; }
+            .slide-counter { font-size: 0.8rem; min-width: 24px; }
+            .lightbox-nav { width: 44px; height: 44px; font-size: 1.4rem; }
+            .lightbox-nav.prev { left: 4px; }
+            .lightbox-nav.next { right: 4px; }
+            .lightbox-close { top: 12px; right: 16px; width: 40px; height: 40px; font-size: 1.2rem; }
+            .lightbox-img-container { height: 60vh; }
+            .lightbox-info h2 { font-size: 1.2rem; }
+            .lightbox-info p { font-size: 0.85rem; }
+        }
+        @media (max-width: 480px) {
+            .dot { width: 8px; height: 8px; gap: 6px; }
+            .nav-btn { width: 34px; height: 34px; font-size: 1rem; }
+            .fullscreen-btn { width: 34px; height: 34px; font-size: 0.9rem; }
+            .slideshow-wrapper { padding: 10px; }
+            .slideshow-wrapper .main-title { font-size: 1.2rem; }
+            .category-item { min-width: 60px; padding: 4px 8px; }
+            .category-item .cat-main { font-size: 0.6rem; }
+            .category-item .cat-sub { font-size: 0.5rem; }
+            .category-divider { height: 24px; }
+            .thumbnail-strip { padding: 10px 20px 6px 20px; }
+            .thumbnail-strip img { height: 40px; width: 40px; border-radius: 6px; }
+            .thumbnail-strip-wrapper::before, .thumbnail-strip-wrapper::after { width: 20px; }
+            .slide-counter { font-size: 0.7rem; min-width: 20px; }
+            .lightbox-nav { width: 36px; height: 36px; font-size: 1rem; }
+            .lightbox-nav.prev { left: 2px; }
+            .lightbox-nav.next { right: 2px; }
+            .lightbox-close { top: 10px; right: 12px; width: 34px; height: 34px; font-size: 1rem; }
+            .lightbox-img-container { height: 50vh; }
+            .lightbox-info h2 { font-size: 1rem; }
+            .lightbox-info p { font-size: 0.75rem; }
+            .lightbox-info .lightbox-sub { font-size: 0.7rem; }
+        }
     </style>
 </head>
 <body>
@@ -293,19 +590,72 @@
             </div>
         </section>
 
+        <!-- ===== FULLY FUNCTIONAL PORTFOLIO SLIDESHOW ===== -->
+        <section class="section fade-up" style="padding-bottom: 40px;">
+            <div class="container">
+                <div class="slideshow-wrapper">
+                    <div class="portfolio-header">
+                        <h2 class="main-title" data-translate="portfolio_main_title">Our <span>Portfolio</span></h2>
+                    </div>
+
+                    <div class="slide-viewport" id="slideViewport">
+                        <div id="slideContainer"></div>
+                    </div>
+
+                    <!-- Progress Bar -->
+                    <div class="progress-bar-container">
+                        <div class="progress-bar" id="progressBar"></div>
+                    </div>
+
+                    <div class="controls-bar">
+                        <div class="dots" id="dotsContainer"></div>
+                        <div class="nav-buttons">
+                            <span class="slide-counter" id="slideCounter">1</span>
+                            <button class="nav-btn" id="prevBtn" aria-label="Previous">‹</button>
+                            <button class="nav-btn" id="nextBtn" aria-label="Next">›</button>
+                            <button class="fullscreen-btn" id="fullscreenBtn" aria-label="Fullscreen">⛶</button>
+                        </div>
+                    </div>
+
+                    <!-- Thumbnail Strip -->
+                    <div class="thumbnail-strip-wrapper">
+                        <div class="thumbnail-strip" id="thumbnailStrip"></div>
+                    </div>
+
+                    <!-- Category Filters (translated) -->
+                    <div class="portfolio-categories" id="portfolioCategories">
+                        <div class="category-item" id="cat-design">
+                            <span class="cat-main" data-translate="portfolio_cat1_main">Design &</span>
+                            <span class="cat-sub" data-translate="portfolio_cat1_sub">Marketing</span>
+                        </div>
+                        <div class="category-divider"></div>
+                        <div class="category-item" id="cat-website">
+                            <span class="cat-main" data-translate="portfolio_cat2_main">Website</span>
+                            <span class="cat-sub" data-translate="portfolio_cat2_sub">Creation</span>
+                        </div>
+                        <div class="category-divider"></div>
+                        <div class="category-item" id="cat-app">
+                            <span class="cat-main" data-translate="portfolio_cat3_main">App</span>
+                            <span class="cat-sub" data-translate="portfolio_cat3_sub">Creation</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- Stats -->
         <section class="section fade-up" style="padding-top:0;">
             <div class="container">
                 <div class="stats-grid" id="statsContainer">
-                    <div class="stat-item"><div class="stat-number" data-target="117">0</div><div class="stat-label" data-translate="stat_projects">Projects Completed</div></div>
-                    <div class="stat-item"><div class="stat-number" data-target="74">0</div><div class="stat-label" data-translate="stat_clients">Happy Clients</div></div>
+                    <div class="stat-item"><div class="stat-number" data-target="287">0</div><div class="stat-label" data-translate="stat_projects">Projects Completed</div></div>
+                    <div class="stat-item"><div class="stat-number" data-target="194">0</div><div class="stat-label" data-translate="stat_clients">Happy Clients</div></div>
                     <div class="stat-item"><div class="stat-number" data-target="6">0</div><div class="stat-label" data-translate="stat_years">Years Excellence</div></div>
                     <div class="stat-item"><div class="stat-number" data-target="10">0</div><div class="stat-label" data-translate="stat_team">Team Members</div></div>
                 </div>
             </div>
         </section>
 
-        <!-- Portfolio -->
+        <!-- Portfolio (existing mini-gallery) -->
         <section id="work" class="section fade-up" style="padding-top:0;">
             <div class="container">
                 <div class="portfolio-showcase">
@@ -343,9 +693,9 @@
                     <div class="contact-info">
                         <h3><span data-translate="contact_title1">Let's create something</span> <span style="color:var(--accent);" data-translate="contact_title2">remarkable</span></h3>
                         <p data-translate="contact_desc">Got a project in mind? Whether it's a complete brand overhaul, a 3D visual, or a complex web/app — let's talk.</p>
-                        <div class="contact-detail"><i class="fas fa-envelope"></i> <span>hello@myprimecreative.com</span></div>
-                        <div class="contact-detail"><i class="fas fa-phone-alt"></i> <span>+(509) 3774-3116</span></div>
-                        <div class="contact-detail"><i class="fas fa-map-marker-alt"></i> <span data-translate="address">Montagne noire / PV · remote worldwide</span></div>
+                        <div class="contact-detail"><i class="fas fa-envelope"></i> <span data-translate="contact_email">hello@myprimecreative.com</span></div>
+                        <div class="contact-detail"><i class="fas fa-phone-alt"></i> <span data-translate="contact_phone">+(509) 3774-3116</span></div>
+                        <div class="contact-detail"><i class="fas fa-map-marker-alt"></i> <span data-translate="contact_address">Montagne Noire, PV</span></div>
                         <div class="social-links" style="margin-top:32px;"><a href="#"><i class="fab fa-behance"></i></a><a href="#"><i class="fab fa-dribbble"></i></a><a href="#"><i class="fab fa-linkedin-in"></i></a><a href="#"><i class="fab fa-instagram"></i></a></div>
                     </div>
                     <div class="contact-form">
@@ -440,6 +790,28 @@
         </div>
     </div>
 
+    <!-- Lightbox (for slideshow) -->
+    <div class="lightbox-overlay" id="lightboxOverlay">
+        <div class="lightbox-content">
+            <button class="lightbox-close" id="lightboxClose">✕</button>
+            <button class="lightbox-nav prev" id="lightboxPrev">‹</button>
+            <button class="lightbox-nav next" id="lightboxNext">›</button>
+            <div class="lightbox-img-container">
+                <img id="lightboxImg" src="" alt="lightbox image" />
+            </div>
+            <div class="lightbox-info">
+                <h2 id="lightboxTitle">Title</h2>
+                <div class="lightbox-sub">
+                    <span id="lightboxCategory">Category</span>
+                    <span id="lightboxYear">Year</span>
+                </div>
+                <p id="lightboxDesc">Description</p>
+                <div id="lightboxLinkContainer"></div>
+            </div>
+            <div class="lightbox-counter" id="lightboxCounter">1</div>
+        </div>
+    </div>
+
     <script>
         (function() {
             // ── Translations (main page) ──
@@ -476,14 +848,47 @@
                     author3: "— Aisha Khan", role3: "CTO, NimbusPay",
                     contact_title1: "Let's create something", contact_title2: "remarkable",
                     contact_desc: "Got a project in mind? Whether it's a complete brand overhaul, a 3D visual, or a complex web/app — let's talk.",
-                    address: "Montagne noire / PV · remote worldwide",
+                    contact_address: "Montagne Noire, PV",
+                    contact_phone: "+(509) 3774-3116",
+                    contact_email: "hello@myprimecreative.com",
                     form_name: "Full name", form_email: "Email address", form_message: "Tell us about your vision...", form_submit: "Send inquiry →",
                     service_opt1: "Graphic Design", service_opt2: "3D & Motion", service_opt3: "Web & App Development", service_opt4: "Digital Marketing", service_opt5: "Other / full package",
                     footer_desc: "Design, 3D, code — we craft digital excellence for forward-thinking brands.",
                     footer_explore: "Explore", footer_services: "Services", footer_portfolio: "Portfolio", footer_careers: "Careers",
                     footer_legal: "Legal", footer_privacy: "Privacy policy", footer_terms: "Terms of service",
                     copyright: "© 2025 PRIME CREATIVE — All works and brands belong to their respective owners. Crafted with",
-                    copyright_end: "for bold ideas."
+                    copyright_end: "for bold ideas.",
+                    // Portfolio main title
+                    portfolio_main_title: "Our <span>Portfolio</span>",
+                    // Portfolio category translations
+                    portfolio_cat1_main: "Design &",
+                    portfolio_cat1_sub: "Marketing",
+                    portfolio_cat2_main: "Website",
+                    portfolio_cat2_sub: "Creation",
+                    portfolio_cat3_main: "App",
+                    portfolio_cat3_sub: "Creation",
+                    // Portfolio slides translations (titles, categories, descriptions)
+                    portfolio_slide1_title: "Chic Attire",
+                    portfolio_slide1_category: "Logo · Design · Flyers",
+                    portfolio_slide1_desc: "We specialize in Logo Design, Flyers, and Digital Marketing solutions to elevate your brand.",
+                    portfolio_slide2_title: "Chic Attire",
+                    portfolio_slide2_category: "Logo · Design · Flyers",
+                    portfolio_slide2_desc: "We specialize in Logo Design, Flyers, and Digital Marketing solutions to elevate your brand.",
+                    portfolio_slide3_title: "Jewelry by Genevieve",
+                    portfolio_slide3_category: "Jewelry · Design · Flyers",
+                    portfolio_slide3_desc: "We specialize in Logo Design, Flyers, and Digital Marketing solutions to elevate your brand.",
+                    portfolio_slide4_title: "Chic Attire",
+                    portfolio_slide4_category: "Website · E-commerce",
+                    portfolio_slide4_desc: "E-commerce website showcasing jewelry collections. View live demo to explore the full experience.",
+                    portfolio_slide5_title: "BIWI",
+                    portfolio_slide5_category: "Website · E-commerce",
+                    portfolio_slide5_desc: "BIWI e-commerce platform – explore our curated collection online.",
+                    portfolio_slide6_title: "Task",
+                    portfolio_slide6_category: "App · Tasks",
+                    portfolio_slide6_desc: "Task management app – organize your daily tasks efficiently with a clean and intuitive interface.",
+                    portfolio_slide7_title: "Booking",
+                    portfolio_slide7_category: "App · Booking",
+                    portfolio_slide7_desc: "Booking app – easily book appointments, services, and reservations with a seamless experience."
                 },
                 fr: {
                     nav_home: "Accueil", nav_services: "Services", nav_portfolio: "Portfolio", nav_contact: "Contact", nav_talk: "Discutons",
@@ -517,14 +922,44 @@
                     author3: "— Aisha Khan", role3: "CTO, NimbusPay",
                     contact_title1: "Créons quelque chose de", contact_title2: "remarquable",
                     contact_desc: "Un projet en tête ? Refonte complète de marque, visuel 3D ou application/web complexe — parlons-en.",
-                    address: "New York / LA · remote mondial",
+                    contact_address: "Montagne Noire, PV",
+                    contact_phone: "+(509) 3774-3116",
+                    contact_email: "hello@myprimecreative.com",
                     form_name: "Nom complet", form_email: "Adresse e-mail", form_message: "Parlez-nous de votre vision...", form_submit: "Envoyer la demande →",
                     service_opt1: "Design Graphique", service_opt2: "3D & Animation", service_opt3: "Développement Web & App", service_opt4: "Marketing Digital", service_opt5: "Autre / pack complet",
                     footer_desc: "Design, 3D, code — nous créons l'excellence numérique pour les marques tournées vers l'avenir.",
                     footer_explore: "Explorer", footer_services: "Services", footer_portfolio: "Portfolio", footer_careers: "Carrières",
                     footer_legal: "Juridique", footer_privacy: "Confidentialité", footer_terms: "Conditions d'utilisation",
                     copyright: "© 2025 PRIME CREATIVE — Toutes les œuvres et marques appartiennent à leurs propriétaires respectifs. Fabriqué avec",
-                    copyright_end: "pour les idées audacieuses."
+                    copyright_end: "pour les idées audacieuses.",
+                    portfolio_main_title: "Notre <span>Portfolio</span>",
+                    portfolio_cat1_main: "Design &",
+                    portfolio_cat1_sub: "Marketing",
+                    portfolio_cat2_main: "Site web",
+                    portfolio_cat2_sub: "Création",
+                    portfolio_cat3_main: "App",
+                    portfolio_cat3_sub: "Création",
+                    portfolio_slide1_title: "Chic Attire",
+                    portfolio_slide1_category: "Logo · Design · Flyers",
+                    portfolio_slide1_desc: "Nous sommes spécialisés dans la création de logos, flyers et solutions de marketing digital pour valoriser votre marque.",
+                    portfolio_slide2_title: "Chic Attire",
+                    portfolio_slide2_category: "Logo · Design · Flyers",
+                    portfolio_slide2_desc: "Nous sommes spécialisés dans la création de logos, flyers et solutions de marketing digital pour valoriser votre marque.",
+                    portfolio_slide3_title: "Jewelry by Genevieve",
+                    portfolio_slide3_category: "Bijoux · Design · Flyers",
+                    portfolio_slide3_desc: "Nous sommes spécialisés dans la création de logos, flyers et solutions de marketing digital pour valoriser votre marque.",
+                    portfolio_slide4_title: "Chic Attire",
+                    portfolio_slide4_category: "Site web · E-commerce",
+                    portfolio_slide4_desc: "Site e-commerce présentant des collections de bijoux. Visionnez la démo en direct pour découvrir l'expérience complète.",
+                    portfolio_slide5_title: "BIWI",
+                    portfolio_slide5_category: "Site web · E-commerce",
+                    portfolio_slide5_desc: "Plateforme e-commerce BIWI – explorez notre collection en ligne.",
+                    portfolio_slide6_title: "Task",
+                    portfolio_slide6_category: "App · Tâches",
+                    portfolio_slide6_desc: "Application de gestion de tâches – organisez vos tâches quotidiennes efficacement avec une interface propre et intuitive.",
+                    portfolio_slide7_title: "Booking",
+                    portfolio_slide7_category: "App · Réservation",
+                    portfolio_slide7_desc: "Application de réservation – réservez facilement des rendez-vous, services et réservations avec une expérience fluide."
                 },
                 ht: {
                     nav_home: "Akèy", nav_services: "Sèvis", nav_portfolio: "Pòtfolyo", nav_contact: "Kontak", nav_talk: "Ann pale",
@@ -558,16 +993,49 @@
                     author3: "— Aisha Khan", role3: "CTO, NimbusPay",
                     contact_title1: "Ann kreye yon bagay", contact_title2: "remakab",
                     contact_desc: "Ou gen yon pwojè nan tèt ou? Kit se yon refonte konplè mak, yon vizyèl 3D, oswa yon aplikasyon/sit konplèks — ann pale.",
-                    address: "New York / LA · remote atravè lemond",
+                    contact_address: "Montagne Noire, PV",
+                    contact_phone: "+(509) 3774-3116",
+                    contact_email: "hello@myprimecreative.com",
                     form_name: "Non konplè", form_email: "Adrès imèl", form_message: "Pale nou de vizyon ou...", form_submit: "Voye demann lan →",
                     service_opt1: "Desen Grafik", service_opt2: "3D & Animasyon", service_opt3: "Devlopman Wèb & App", service_opt4: "Maketing Digital", service_opt5: "Lòt / pakè konplè",
                     footer_desc: "Desen, 3D, kòd — nou kreye ekselans dijital pou mak ki gade pou pi devan.",
                     footer_explore: "Eksplore", footer_services: "Sèvis", footer_portfolio: "Pòtfolyo", footer_careers: "Karyè",
                     footer_legal: "Legal", footer_privacy: "Konfidansyalite", footer_terms: "Kondisyon itilizasyon",
                     copyright: "© 2025 PRIME CREATIVE — Tout travay ak mak apatni a pwopriyetè respektif yo. Fabrike ak",
-                    copyright_end: "pou lide odasye."
+                    copyright_end: "pou lide odasye.",
+                    portfolio_main_title: "Pòtfolyo <span>nou</span>",
+                    portfolio_cat1_main: "Design &",
+                    portfolio_cat1_sub: "Maketing",
+                    portfolio_cat2_main: "Sit wèb",
+                    portfolio_cat2_sub: "Kreyasyon",
+                    portfolio_cat3_main: "App",
+                    portfolio_cat3_sub: "Kreyasyon",
+                    portfolio_slide1_title: "Chic Attire",
+                    portfolio_slide1_category: "Logo · Design · Flyers",
+                    portfolio_slide1_desc: "Nou espesyalize nan Kreyasyon Logo, Flyers, ak Solisyon Maketing Digital pou elve mak ou.",
+                    portfolio_slide2_title: "Chic Attire",
+                    portfolio_slide2_category: "Logo · Design · Flyers",
+                    portfolio_slide2_desc: "Nou espesyalize nan Kreyasyon Logo, Flyers, ak Solisyon Maketing Digital pou elve mak ou.",
+                    portfolio_slide3_title: "Jewelry by Genevieve",
+                    portfolio_slide3_category: "Bijou · Design · Flyers",
+                    portfolio_slide3_desc: "Nou espesyalize nan Kreyasyon Logo, Flyers, ak Solisyon Maketing Digital pou elve mak ou.",
+                    portfolio_slide4_title: "Chic Attire",
+                    portfolio_slide4_category: "Sit wèb · E-commerce",
+                    portfolio_slide4_desc: "Sit e-commerce ki prezante koleksyon bijou. Gade demo an dirèk pou eksplore eksperyans konplè a.",
+                    portfolio_slide5_title: "BIWI",
+                    portfolio_slide5_category: "Sit wèb · E-commerce",
+                    portfolio_slide5_desc: "Platfòm e-commerce BIWI – eksplore koleksyon nou an liy.",
+                    portfolio_slide6_title: "Task",
+                    portfolio_slide6_category: "App · Tach",
+                    portfolio_slide6_desc: "Aplikasyon jesyon tach – òganize tach chak jou ou avèk efikasite ak yon koòdone pwòp ak entwitif.",
+                    portfolio_slide7_title: "Booking",
+                    portfolio_slide7_category: "App · Rezèvasyon",
+                    portfolio_slide7_desc: "Aplikasyon rezèvasyon – rezève fasilman randevou, sèvis ak rezèvasyon ak yon eksperyans san pwoblèm."
                 }
             };
+
+            // ── Expose translations globally for the slideshow script ──
+            window.translations = translations;
 
             // ── Chat translations ──
             const chatTranslations = {
@@ -591,9 +1059,9 @@
                         marketing: "📈 Our digital marketing team boosts your online presence with SEO, social media management, content strategy, paid ads, and analytics. We turn leads into loyal customers. Ready to grow?",
                         pricing: "💰 Pricing varies by scope:\n• Logo design: starts at $200\n• Full brand package (logo + business card + badge + etc.): $500\n• Website/App: custom, starting from $1k up to $50k+\n• Digital Marketing: starts at $200/month\nWant a custom quote? Tell me more about your project!",
                         portfolio: "🎨 You can check out our portfolio section on this page! We've done brand identities, 3D furniture renders, fashion e‑commerce sites, fintech apps, and social campaigns. I can also share more tailored examples — what type of work are you looking for?",
-                        start: "🚀 Starting a project is easy! 1️⃣ Reach out via the contact form or email us at hello@primecreative.com. 2️⃣ We'll schedule a discovery call to understand your vision. 3️⃣ We'll send a proposal with timeline and pricing. 4️⃣ Once approved, we bring your idea to life! Ready to take the first step?",
+                        start: "🚀 Starting a project is easy! 1️⃣ Reach out via the contact form or email us at hello@myprimecreative.com. 2️⃣ We'll schedule a discovery call to understand your vision. 3️⃣ We'll send a proposal with timeline and pricing. 4️⃣ Once approved, we bring your idea to life! Ready to take the first step?",
                         team: "🌟 Prime Creative is a team of designers, 3D artists, developers, and marketing strategists. We've been crafting digital excellence for 6+ years, serving clients from startups to global brands. We're passionate about turning bold ideas into reality!",
-                        contact: "📬 You can reach us at hello@primecreative.com or call +1 (212) 555 0987. We're based in New York and LA, but we work remotely with clients worldwide. Use the contact form on this page — we'll reply within 24h!",
+                        contact: "📬 You can reach us at hello@myprimecreative.com or call +(509) 3774-3116. We're based in Montagne Noire, PV, but we work remotely with clients worldwide. Use the contact form on this page — we'll reply within 24h!",
                         thank: "You're welcome! 🙌 I'm here whenever you need me. Anything else I can help with?",
                         bye: "Goodbye for now! 👋 Feel free to come back anytime if you have more questions. Have a great day!",
                         whatsapp: "📱 You can speak with a real customer support agent directly on WhatsApp. Click this link to start a chat: https://wa.me/message/TWWSM72QHJJ4B1",
@@ -620,9 +1088,9 @@
                         marketing: "📈 Notre équipe de marketing digital booste votre présence en ligne avec le SEO, la gestion des réseaux sociaux, la stratégie de contenu, les publicités payantes et l'analyse. Nous transformons les prospects en clients fidèles. Prêt à grandir ?",
                         pricing: "💰 Les tarifs varient selon le périmètre :\n• Création de logo : à partir de 200 $\n• Pack complet (logo + carte de visite + badge + etc.) : 500 $\n• Site web/App : sur mesure, de 1 000 $ à 50 000 $+\n• Marketing Digital : à partir de 200 $/mois\nVous voulez un devis personnalisé ? Parlez-moi de votre projet !",
                         portfolio: "🎨 Vous pouvez consulter notre section portfolio sur cette page ! Nous avons réalisé des identités de marque, des rendus 3D de meubles, des sites e‑commerce de mode, des applications fintech et des campagnes sociales. Je peux aussi vous montrer des exemples plus ciblés — quel type de travail cherchez-vous ?",
-                        start: "🚀 Démarrer un projet est facile ! 1️⃣ Contactez-nous via le formulaire ou par email à hello@primecreative.com. 2️⃣ Nous planifions un appel de découverte pour comprendre votre vision. 3️⃣ Nous vous envoyons une proposition avec calendrier et tarifs. 4️⃣ Une fois approuvé, nous donnons vie à votre idée ! Prêt à faire le premier pas ?",
+                        start: "🚀 Démarrer un projet est facile ! 1️⃣ Contactez-nous via le formulaire ou par email à hello@myprimecreative.com. 2️⃣ Nous planifions un appel de découverte pour comprendre votre vision. 3️⃣ Nous vous envoyons une proposition avec calendrier et tarifs. 4️⃣ Une fois approuvé, nous donnons vie à votre idée ! Prêt à faire le premier pas ?",
                         team: "🌟 Prime Creative est une équipe de designers, d'artistes 3D, de développeurs et de stratèges marketing. Nous créons l'excellence numérique depuis plus de 6 ans, au service de clients allant des start-ups aux marques mondiales. Nous sommes passionnés par la transformation d'idées audacieuses en réalité !",
-                        contact: "📬 Vous pouvez nous joindre à hello@primecreative.com ou au +1 (212) 555 0987. Nous sommes basés à New York et Los Angeles, mais nous travaillons à distance avec des clients du monde entier. Utilisez le formulaire de contact sur cette page — nous répondons sous 24h !",
+                        contact: "📬 Vous pouvez nous joindre à hello@myprimecreative.com ou au +(509) 3774-3116. Nous sommes basés à Montagne Noire, PV, mais nous travaillons à distance avec des clients du monde entier. Utilisez le formulaire de contact sur cette page — nous répondons sous 24h !",
                         thank: "De rien ! 🙌 Je suis là quand vous avez besoin de moi. Autre chose ?",
                         bye: "Au revoir pour l'instant ! 👋 N'hésitez pas à revenir quand vous voulez si vous avez d'autres questions. Bonne journée !",
                         whatsapp: "📱 Vous pouvez parler directement avec un agent du support client sur WhatsApp. Cliquez sur ce lien pour démarrer une conversation : https://wa.me/message/TWWSM72QHJJ4B1",
@@ -649,9 +1117,9 @@
                         marketing: "📈 Ekip maketing dijital nou ogmante prezans ou sou entènèt ak SEO, jesyon rezo sosyal, estrateji kontni, piblisite peye, ak analiz. Nou konvèti leads an kliyan fidèl. Ou pare pou grandi?",
                         pricing: "💰 Pri yo varye selon pwojè a:\n• Kreyasyon logo: kòmanse nan $200\n• Pakè konplè (logo + kat biznis + badj + elatriye): $500\n• Sit wèb/App: sou mezi, soti nan $1,000 rive $50,000+\n• Maketing Digital: kòmanse nan $200/mwa\nOu vle yon estimasyon pèsonalize? Di m plis sou pwojè ou!",
                         portfolio: "🎨 Ou ka gade seksyon pòtfolyo nou sou paj sa! Nou te fè idantite mak, rann 3D mèb, sit e-commerce mòd, apps finansyè, ak kanpay sosyal. Mwen ka pataje plis egzanp adapte — ki kalite travay w ap chèche?",
-                        start: "🚀 Kòmanse yon pwojè fasil! 1️⃣ Kontakte nou via fòmilè a oswa imèl hello@primecreative.com. 2️⃣ Nou pran yon apèl dekouvèt pou konprann vizyon ou. 3️⃣ Nou voye yon pwopozisyon ak delè ak pri. 4️⃣ Yon fwa apwouve, nou bay lide ou lavi! Ou pare pou premye etap la?",
+                        start: "🚀 Kòmanse yon pwojè fasil! 1️⃣ Kontakte nou via fòmilè a oswa imèl hello@myprimecreative.com. 2️⃣ Nou pran yon apèl dekouvèt pou konprann vizyon ou. 3️⃣ Nou voye yon pwopozisyon ak delè ak pri. 4️⃣ Yon fwa apwouve, nou bay lide ou lavi! Ou pare pou premye etap la?",
                         team: "🌟 Prime Creative se yon ekip designer, atis 3D, developè, ak estratejis maketing. Nou kree ekselans dijital depi plis pase 6 an, pou kliyan ki soti nan start-up rive nan mak mondyal. Nou pasyone pou fè lide odasye vin reyalite!",
-                        contact: "📬 Ou ka kontakte nou nan hello@primecreative.com oswa +1 (212) 555 0987. Nou baze nan New York ak Los Angeles, men nou travay aleka ak kliyan atravè lemond. Sèvi ak fòmilè kontak sou paj sa — nou reponn nan lespas 24h!",
+                        contact: "📬 Ou ka kontakte nou nan hello@myprimecreative.com oswa +(509) 3774-3116. Nou baze nan Montagne Noire, PV, men nou travay aleka ak kliyan atravè lemond. Sèvi ak fòmilè kontak sou paj sa — nou reponn nan lespas 24h!",
                         thank: "Padekoua! 🙌 Mwen la chak fwa ou bezwen mwen. Yon lòt bagay?",
                         bye: "Orevwa pou kounye a! 👋 Ou lib pou retounen nenpòt lè si w gen plis kesyon. Pase yon bon jounen!",
                         whatsapp: "📱 Ou ka pale dirèkteman ak yon ajan sipò kliyan sou WhatsApp. Klike sou lyen sa a pou kòmanse yon konvèsasyon: https://wa.me/message/TWWSM72QHJJ4B1",
@@ -662,39 +1130,34 @@
 
             let currentLang = 'en';
 
-            // ── Apply main page language (fixed) ──
+            // ── Apply main page language ──
             function applyLanguage(lang) {
-                if (!translations[lang]) {
-                    // fallback to English if translation missing
-                    lang = 'en';
-                }
-                // Update all data-translate elements
+                if (!translations[lang]) return;
+                // Main page translations
                 document.querySelectorAll('[data-translate]').forEach(el => {
                     const key = el.getAttribute('data-translate');
-                    if (translations[lang] && translations[lang][key] !== undefined) {
-                        // For input/textarea/select, we don't set innerHTML, but we handle placeholders separately
-                        if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA' || el.tagName === 'SELECT') {
-                            // do nothing here, placeholders handled below
-                        } else {
+                    if (translations[lang][key] !== undefined) {
+                        if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA' || el.tagName === 'SELECT') {} else {
                             el.innerHTML = translations[lang][key];
                         }
                     }
                 });
-                // Update placeholders
                 document.querySelectorAll('[data-translate-placeholder]').forEach(el => {
                     const key = el.getAttribute('data-translate-placeholder');
-                    if (translations[lang] && translations[lang][key] !== undefined) {
-                        el.placeholder = translations[lang][key];
-                    }
+                    if (translations[lang][key] !== undefined) el.placeholder = translations[lang][key];
                 });
-                // Update active state of main language buttons
                 document.querySelectorAll('.lang-btn').forEach(btn => {
                     btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
                 });
-                // Update current language variable
                 currentLang = lang;
-                // Also update the chat UI to match
+
+                // Update chat UI
                 updateChatLanguage(lang);
+
+                // Update portfolio slideshow (call global function)
+                if (typeof window.updateSlideshowTranslations === 'function') {
+                    window.updateSlideshowTranslations(lang);
+                }
             }
 
             // ── Update chat UI ──
@@ -703,7 +1166,6 @@
                 document.getElementById('chatHeaderTitle').textContent = t.headerTitle;
                 document.getElementById('chatHeaderStatus').textContent = t.headerStatus;
                 document.getElementById('chatInput').placeholder = t.placeholder;
-                // Rebuild quick replies
                 const container = document.getElementById('quickReplies');
                 container.innerHTML = '';
                 t.quickReplies.forEach(q => {
@@ -714,19 +1176,17 @@
                     btn.setAttribute('data-text', q.value);
                     container.appendChild(btn);
                 });
-                // Update first greeting if it's the only message
                 const msgs = document.getElementById('chatMessages');
                 const firstMsg = msgs.querySelector('.msg.bot');
                 if (firstMsg && msgs.children.length === 1) {
                     firstMsg.innerHTML = t.greeting + ' <span class="msg-time">' + new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) + '</span>';
                 }
-                // Update chat language picker active state
                 document.querySelectorAll('#chatLangPicker button').forEach(btn => {
                     btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
                 });
             }
 
-            // ── Get chat response (rule-based) ──
+            // ── Get chat response ──
             function getChatResponse(text, lang) {
                 const t = chatTranslations[lang] || chatTranslations.en;
                 const lower = text.toLowerCase();
@@ -785,7 +1245,7 @@
                 return t.responses.default;
             }
 
-            // ── Chat DOM ──
+            // ── Chat DOM refs ──
             const chatToggle = document.getElementById('chatToggle');
             const chatWindow = document.getElementById('chatWindow');
             const chatCloseBtn = document.getElementById('chatCloseBtn');
@@ -801,9 +1261,7 @@
             const modelSelect = document.getElementById('modelSelect');
             const chatLangPicker = document.getElementById('chatLangPicker');
 
-            let isOpen = false;
-            let isProcessing = false;
-            let useAPI = false;
+            let isOpen = false, isProcessing = false, useAPI = false;
             let apiKey = localStorage.getItem('prime_chat_api_key') || '';
             let selectedModel = localStorage.getItem('prime_chat_model') || 'google/gemini-2.0-flash-exp:free';
             if (apiKey) { apiKeyInput.value = apiKey; useAPI = true; }
@@ -814,17 +1272,14 @@
                 const btn = e.target.closest('button');
                 if (!btn) return;
                 const lang = btn.getAttribute('data-lang');
-                // Update chat picker active state
                 chatLangPicker.querySelectorAll('button').forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
-                // Apply to main page and chat
                 applyLanguage(lang);
-                // Add confirmation message
                 const langName = { en: 'English', fr: 'French', ht: 'Kreyol' } [lang];
                 addMessage(`🌐 Language switched to ${langName}. How can I help you?`, 'bot');
             });
 
-            // ── Message functions ──
+            // ── Chat message functions ──
             function addMessage(text, sender, time) {
                 const div = document.createElement('div');
                 div.className = `msg ${sender}`;
@@ -946,23 +1401,19 @@
                 }
             });
 
-            // ── Init ──
-            // Set default language (en) and apply to chat
+            // ── Init chat ──
             applyLanguage('en');
-
-            // Add initial greeting
             const initialGreeting = chatTranslations.en.greeting;
             const msgDiv = document.createElement('div');
             msgDiv.className = 'msg bot';
             msgDiv.innerHTML = initialGreeting + ' <span class="msg-time">' + new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) + '</span>';
             chatMessages.appendChild(msgDiv);
 
-            // ── Main page language picker (navbar) ──
+            // ── Main page language picker ──
             document.querySelectorAll('.lang-btn').forEach(btn => {
                 btn.addEventListener('click', function(e) {
                     const lang = this.getAttribute('data-lang');
                     applyLanguage(lang);
-                    // Also update chat language picker to match
                     document.querySelectorAll('#chatLangPicker button').forEach(b => {
                         b.classList.toggle('active', b.getAttribute('data-lang') === lang);
                     });
@@ -1060,8 +1511,516 @@
                 });
             });
 
-            console.log('🚀 Prime Creative — fully loaded. Language switching fixed.');
+            // ── Force page to top on load ──
+            window.addEventListener('load', function() {
+                // Remove any hash fragment to prevent scrolling
+                if (window.location.hash) {
+                    history.replaceState(null, '', window.location.pathname + window.location.search);
+                }
+                window.scrollTo(0, 0);
+            });
+
+            console.log('🚀 Prime Creative — fully loaded.');
         })();
     </script>
+
+    <!-- ─── PORTFOLIO SLIDESHOW SCRIPT (with translations support) ─── -->
+    <script>
+        (function() {
+            // ================================================================
+            //  DATA — Base slide data (images and links stay the same)
+            // ================================================================
+            const basePictures = [{
+                id: 1,
+                url: 'https://i.imgur.com/vdpaSuo.jpeg',
+                popupUrl: 'https://i.imgur.com/7Dt6bNd.jpeg',
+                linkType: 'instagram',
+                linkUrl: 'https://www.instagram.com/chicattire_11?igsh=aGxrNzNuNWV6N3Z4',
+                titleKey: 'portfolio_slide1_title',
+                categoryKey: 'portfolio_slide1_category',
+                descKey: 'portfolio_slide1_desc',
+                year: '2025'
+            }, {
+                id: 2,
+                url: 'https://i.imgur.com/NX8HLoe.jpeg',
+                popupUrl: 'https://i.imgur.com/L2lk8ya.jpeg',
+                linkType: 'instagram',
+                linkUrl: 'https://www.instagram.com/zoul.26?igsh=dGtodDN2bnF5eXll',
+                titleKey: 'portfolio_slide2_title',
+                categoryKey: 'portfolio_slide2_category',
+                descKey: 'portfolio_slide2_desc',
+                year: '2025'
+            }, {
+                id: 3,
+                url: 'https://i.imgur.com/QoVJV7z.png',
+                popupUrl: 'https://i.imgur.com/TzAaKel.jpeg',
+                linkType: 'instagram',
+                linkUrl: 'https://www.instagram.com/jewelrybygenevieve?igsh=MTRkdHpyeTloaWttcA==',
+                titleKey: 'portfolio_slide3_title',
+                categoryKey: 'portfolio_slide3_category',
+                descKey: 'portfolio_slide3_desc',
+                year: '2025'
+            }, {
+                id: 4,
+                url: 'https://i.imgur.com/dBOwBTf.jpeg',
+                popupUrl: 'https://i.imgur.com/7omoo4Q.jpeg',
+                linkType: 'demo',
+                linkUrl: 'https://romelky018-design.github.io/Chic-attire/',
+                titleKey: 'portfolio_slide4_title',
+                categoryKey: 'portfolio_slide4_category',
+                descKey: 'portfolio_slide4_desc',
+                year: '2025'
+            }, {
+                id: 5,
+                url: 'https://i.imgur.com/XERRbmI.png',
+                popupUrl: 'https://i.imgur.com/pkeOPmv.jpeg',
+                linkType: 'demo',
+                linkUrl: 'https://romelky018-design.github.io/BIWI/',
+                titleKey: 'portfolio_slide5_title',
+                categoryKey: 'portfolio_slide5_category',
+                descKey: 'portfolio_slide5_desc',
+                year: '2025'
+            }, {
+                id: 6,
+                url: 'https://i.imgur.com/XSXHs90.png',
+                popupUrl: 'https://i.imgur.com/kMo8iPT.jpeg',
+                linkType: 'demo',
+                linkUrl: 'https://romelky018-design.github.io/Task/',
+                titleKey: 'portfolio_slide6_title',
+                categoryKey: 'portfolio_slide6_category',
+                descKey: 'portfolio_slide6_desc',
+                year: '2025'
+            }, {
+                id: 7,
+                url: 'https://i.imgur.com/T1fyZzU.png',
+                popupUrl: 'https://i.imgur.com/Zv0MkS6.jpeg',
+                linkType: 'demo',
+                linkUrl: 'https://romelky018-design.github.io/Booking/',
+                titleKey: 'portfolio_slide7_title',
+                categoryKey: 'portfolio_slide7_category',
+                descKey: 'portfolio_slide7_desc',
+                year: '2025'
+            }];
+
+            // ================================================================
+            //  STATE & DOM REFS
+            // ================================================================
+            let currentIndex = 0;
+            let slideInterval = null;
+            let progressRAF = null;
+            let progressStartTime = 0;
+            const SLIDE_DELAY = 4500;
+            let currentLang = 'en';
+
+            const container = document.getElementById('slideContainer');
+            const dotsContainer = document.getElementById('dotsContainer');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const viewport = document.getElementById('slideViewport');
+            const fullscreenBtn = document.getElementById('fullscreenBtn');
+            const counter = document.getElementById('slideCounter');
+            const thumbnailStrip = document.getElementById('thumbnailStrip');
+            const progressBar = document.getElementById('progressBar');
+
+            // Lightbox refs
+            const lightboxOverlay = document.getElementById('lightboxOverlay');
+            const lightboxImg = document.getElementById('lightboxImg');
+            const lightboxTitle = document.getElementById('lightboxTitle');
+            const lightboxCategory = document.getElementById('lightboxCategory');
+            const lightboxYear = document.getElementById('lightboxYear');
+            const lightboxDesc = document.getElementById('lightboxDesc');
+            const lightboxCounter = document.getElementById('lightboxCounter');
+            const lightboxLinkContainer = document.getElementById('lightboxLinkContainer');
+            const lightboxClose = document.getElementById('lightboxClose');
+            const lightboxPrev = document.getElementById('lightboxPrev');
+            const lightboxNext = document.getElementById('lightboxNext');
+
+            const catDesign = document.getElementById('cat-design');
+            const catWebsite = document.getElementById('cat-website');
+            const catApp = document.getElementById('cat-app');
+
+            // ================================================================
+            //  HELPER: Get translated picture data
+            // ================================================================
+            function getTranslatedPictures(lang) {
+                const t = window.translations ? window.translations[lang] : null;
+                if (!t) return basePictures.map(p => ({
+                    ...p,
+                    title: p.titleKey,
+                    category: p.categoryKey,
+                    description: p.descKey
+                }));
+                return basePictures.map(p => ({
+                    ...p,
+                    title: t[p.titleKey] || p.titleKey,
+                    category: t[p.categoryKey] || p.categoryKey,
+                    description: t[p.descKey] || p.descKey
+                }));
+            }
+
+            // ================================================================
+            //  PROGRESS BAR
+            // ================================================================
+            function startProgress() {
+                if (progressRAF) cancelAnimationFrame(progressRAF);
+                progressStartTime = performance.now();
+                progressBar.style.transform = 'translateX(0%)';
+                progressBar.style.width = '100%';
+
+                function updateProgress() {
+                    const elapsed = performance.now() - progressStartTime;
+                    const progress = Math.min(elapsed / SLIDE_DELAY, 1);
+                    progressBar.style.transform = `scaleX(${progress})`;
+                    progressBar.style.width = '100%';
+                    if (progress < 1) {
+                        progressRAF = requestAnimationFrame(updateProgress);
+                    } else {
+                        progressRAF = null;
+                    }
+                }
+                progressRAF = requestAnimationFrame(updateProgress);
+            }
+
+            function resetProgress() {
+                if (progressRAF) { cancelAnimationFrame(progressRAF);
+                    progressRAF = null; }
+                progressBar.style.transform = 'scaleX(0)';
+                progressBar.style.width = '100%';
+            }
+
+            // ================================================================
+            //  RENDER
+            // ================================================================
+            function renderSlides(lang) {
+                const pictures = getTranslatedPictures(lang);
+                let slidesHTML = '';
+                pictures.forEach((pic, idx) => {
+                    slidesHTML += `
+                        <div class="slide" data-index="${idx}">
+                            <img src="${pic.url}" alt="${pic.title}" loading="lazy" />
+                            <div class="click-hint">🖱 click for details</div>
+                        </div>
+                    `;
+                });
+                container.innerHTML = slidesHTML;
+
+                let dotsHTML = '';
+                pictures.forEach((_, idx) => {
+                    dotsHTML += `<button class="dot" data-index="${idx}" aria-label="Go to slide ${idx + 1}"></button>`;
+                });
+                dotsContainer.innerHTML = dotsHTML;
+
+                document.querySelectorAll('.dot').forEach((dot) => {
+                    dot.addEventListener('click', (e) => {
+                        const idx = parseInt(e.currentTarget.dataset.index, 10);
+                        goToSlide(idx);
+                        resetAutoPlay();
+                    });
+                });
+
+                document.querySelectorAll('.slide').forEach((slide) => {
+                    slide.addEventListener('click', (e) => {
+                        const idx = parseInt(slide.dataset.index, 10);
+                        openLightbox(idx);
+                    });
+                });
+
+                let thumbHTML = '';
+                pictures.forEach((pic, idx) => {
+                    thumbHTML += `
+                        <img src="${pic.url}" alt="${pic.title}" data-index="${idx}" loading="lazy" />
+                    `;
+                });
+                thumbnailStrip.innerHTML = thumbHTML;
+
+                document.querySelectorAll('.thumbnail-strip img').forEach((thumb) => {
+                    thumb.addEventListener('click', (e) => {
+                        const idx = parseInt(e.currentTarget.dataset.index, 10);
+                        goToSlide(idx);
+                        resetAutoPlay();
+                    });
+                });
+
+                updateSlides(0, lang);
+            }
+
+            // ================================================================
+            //  UPDATE SLIDES
+            // ================================================================
+            function updateSlides(index, lang) {
+                const pictures = getTranslatedPictures(lang);
+                const total = pictures.length;
+                if (index < 0) index = total - 1;
+                if (index >= total) index = 0;
+                currentIndex = index;
+
+                const slides = container.querySelectorAll('.slide');
+                slides.forEach((slide, i) => {
+                    const offset = i - currentIndex;
+                    let scale = 1 - Math.abs(offset) * 0.15;
+                    scale = Math.max(scale, 0.5);
+                    let translateX = offset * 70;
+                    let opacity = 1 - Math.abs(offset) * 0.25;
+                    opacity = Math.max(opacity, 0.15);
+                    let zIndex = 10 - Math.abs(offset);
+                    let boxShadow = '0 10px 30px -10px rgba(0,0,0,0.5)';
+                    if (offset === 0) {
+                        scale = 1;
+                        boxShadow = '0 20px 60px -12px rgba(0,0,0,0.8), 0 0 0 1px rgba(255,255,255,0.04)';
+                    }
+                    slide.style.transform = `translateX(${translateX}%) scale(${scale})`;
+                    slide.style.opacity = opacity;
+                    slide.style.zIndex = zIndex;
+                    slide.style.boxShadow = boxShadow;
+                    slide.classList.toggle('active', offset === 0);
+
+                    const img = slide.querySelector('img');
+                    if (img) {
+                        const parallaxOffset = offset * 20;
+                        img.style.transform = `translateX(${parallaxOffset}px)`;
+                    }
+                });
+
+                document.querySelectorAll('.dot').forEach((dot, i) => {
+                    dot.classList.toggle('active', i === currentIndex);
+                });
+
+                counter.textContent = currentIndex + 1;
+
+                document.querySelectorAll('.thumbnail-strip img').forEach((thumb, i) => {
+                    thumb.classList.toggle('active', i === currentIndex);
+                    // Only scroll thumbnails if user explicitly clicks one, not on load
+                    // We'll skip automatic scroll on initial render
+                });
+
+                catDesign.classList.remove('active');
+                catWebsite.classList.remove('active');
+                catApp.classList.remove('active');
+
+                if (currentIndex <= 2) {
+                    catDesign.classList.add('active');
+                } else if (currentIndex <= 4) {
+                    catWebsite.classList.add('active');
+                } else {
+                    catApp.classList.add('active');
+                }
+
+                resetProgress();
+                startProgress();
+            }
+
+            function goToSlide(index) {
+                const pictures = getTranslatedPictures(currentLang);
+                if (index < 0) index = pictures.length - 1;
+                if (index >= pictures.length) index = 0;
+                updateSlides(index, currentLang);
+            }
+
+            function nextSlide() { goToSlide(currentIndex + 1); }
+
+            function prevSlide() { goToSlide(currentIndex - 1); }
+
+            // ================================================================
+            //  CATEGORY CLICK
+            // ================================================================
+            catDesign.addEventListener('click', () => { goToSlide(0);
+                resetAutoPlay(); });
+            catWebsite.addEventListener('click', () => { goToSlide(3);
+                resetAutoPlay(); });
+            catApp.addEventListener('click', () => { goToSlide(5);
+                resetAutoPlay(); });
+
+            // ================================================================
+            //  FULLSCREEN
+            // ================================================================
+            function toggleFullscreen() {
+                if (!document.fullscreenElement) {
+                    document.documentElement.requestFullscreen().catch(err => {});
+                } else {
+                    if (document.exitFullscreen) document.exitFullscreen();
+                }
+            }
+            fullscreenBtn.addEventListener('click', toggleFullscreen);
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'f' || e.key === 'F') { e.preventDefault();
+                    toggleFullscreen(); }
+            });
+
+            // ================================================================
+            //  LIGHTBOX
+            // ================================================================
+            function openLightbox(index) {
+                const pictures = getTranslatedPictures(currentLang);
+                const pic = pictures[index];
+                if (!pic) return;
+
+                const imageSrc = pic.popupUrl || pic.url;
+                lightboxImg.src = imageSrc;
+                lightboxImg.alt = pic.title;
+                lightboxTitle.textContent = pic.title;
+                lightboxCategory.textContent = pic.category;
+                lightboxYear.textContent = pic.year;
+                lightboxDesc.textContent = pic.description;
+                lightboxCounter.textContent = index + 1;
+
+                if (pic.linkUrl) {
+                    let label = 'Visit Instagram Profile';
+                    let icon = '📸';
+                    if (pic.linkType === 'demo') {
+                        label = 'View Live Demo';
+                        icon = '🚀';
+                    }
+                    lightboxLinkContainer.innerHTML = `
+                        <a href="${pic.linkUrl}" target="_blank" class="lightbox-link">
+                            ${icon} ${label}
+                        </a>
+                    `;
+                } else {
+                    lightboxLinkContainer.innerHTML = '';
+                }
+
+                lightboxOverlay.classList.add('open');
+                document.body.style.overflow = 'hidden';
+                lightboxOverlay.dataset.index = index;
+
+                if (slideInterval) { clearInterval(slideInterval);
+                    slideInterval = null; }
+                resetProgress();
+            }
+
+            function closeLightbox() {
+                lightboxOverlay.classList.remove('open');
+                document.body.style.overflow = '';
+                startAutoPlay();
+            }
+
+            function navigateLightbox(direction) {
+                const pictures = getTranslatedPictures(currentLang);
+                const total = pictures.length;
+                let current = parseInt(lightboxOverlay.dataset.index) || 0;
+                let newIndex = current + direction;
+                if (newIndex < 0) newIndex = total - 1;
+                if (newIndex >= total) newIndex = 0;
+                lightboxOverlay.dataset.index = newIndex;
+                openLightbox(newIndex);
+            }
+
+            lightboxClose.addEventListener('click', closeLightbox);
+            lightboxPrev.addEventListener('click', () => navigateLightbox(-1));
+            lightboxNext.addEventListener('click', () => navigateLightbox(1));
+
+            lightboxOverlay.addEventListener('click', (e) => {
+                if (e.target === lightboxOverlay) closeLightbox();
+            });
+
+            document.addEventListener('keydown', (e) => {
+                if (!lightboxOverlay.classList.contains('open')) return;
+                if (e.key === 'Escape') closeLightbox();
+                if (e.key === 'ArrowLeft') navigateLightbox(-1);
+                if (e.key === 'ArrowRight') navigateLightbox(1);
+            });
+
+            // ================================================================
+            //  AUTOPLAY
+            // ================================================================
+            function startAutoPlay() {
+                if (slideInterval) clearInterval(slideInterval);
+                slideInterval = setInterval(() => { nextSlide(); }, SLIDE_DELAY);
+            }
+
+            function resetAutoPlay() {
+                if (slideInterval) { clearInterval(slideInterval);
+                    slideInterval = null; }
+                resetProgress();
+                startAutoPlay();
+            }
+
+            // ================================================================
+            //  SWIPE
+            // ================================================================
+            let touchStartX = 0,
+                touchStartY = 0,
+                isSwiping = false;
+
+            viewport.addEventListener('touchstart', (e) => {
+                const touch = e.touches[0];
+                touchStartX = touch.clientX;
+                touchStartY = touch.clientY;
+                isSwiping = true;
+                if (slideInterval) { clearInterval(slideInterval);
+                    slideInterval = null; }
+            }, { passive: true });
+
+            viewport.addEventListener('touchmove', (e) => {
+                if (!isSwiping) return;
+                const touch = e.touches[0];
+                const deltaX = touch.clientX - touchStartX;
+                const deltaY = touch.clientY - touchStartY;
+                if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 10) {
+                    e.preventDefault();
+                }
+            }, { passive: false });
+
+            viewport.addEventListener('touchend', (e) => {
+                if (!isSwiping) return;
+                isSwiping = false;
+                const touch = e.changedTouches[0];
+                const deltaX = touch.clientX - touchStartX;
+                const deltaY = touch.clientY - touchStartY;
+                const threshold = 40;
+                if (Math.abs(deltaX) > threshold && Math.abs(deltaX) > Math.abs(deltaY) * 1.5) {
+                    if (deltaX < 0) { nextSlide(); } else { prevSlide(); }
+                    resetAutoPlay();
+                } else {
+                    if (!lightboxOverlay.classList.contains('open')) { startAutoPlay(); }
+                }
+            }, { passive: true });
+
+            // ================================================================
+            //  NAV BUTTONS
+            // ================================================================
+            prevBtn.addEventListener('click', () => { prevSlide();
+                resetAutoPlay(); });
+            nextBtn.addEventListener('click', () => { nextSlide();
+                resetAutoPlay(); });
+
+            document.addEventListener('keydown', (e) => {
+                if (lightboxOverlay.classList.contains('open')) return;
+                if (e.key === 'ArrowLeft') { prevSlide();
+                    resetAutoPlay();
+                    e.preventDefault(); }
+                if (e.key === 'ArrowRight') { nextSlide();
+                    resetAutoPlay();
+                    e.preventDefault(); }
+            });
+
+            viewport.addEventListener('mouseenter', () => {
+                if (slideInterval) { clearInterval(slideInterval);
+                    slideInterval = null; }
+                resetProgress();
+            });
+
+            viewport.addEventListener('mouseleave', () => {
+                if (!lightboxOverlay.classList.contains('open')) { startAutoPlay(); }
+            });
+
+            // ================================================================
+            //  PUBLIC API for language update
+            // ================================================================
+            window.updateSlideshowTranslations = function(lang) {
+                currentLang = lang;
+                renderSlides(lang);
+                resetAutoPlay();
+            };
+
+            // ================================================================
+            //  INIT
+            // ================================================================
+            currentLang = 'en';
+            renderSlides('en');
+            startAutoPlay();
+        })();
+    </script>
+
 </body>
-    </html>
+                </html>
