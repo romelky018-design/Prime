@@ -647,8 +647,8 @@
         <section class="section fade-up" style="padding-top:0;">
             <div class="container">
                 <div class="stats-grid" id="statsContainer">
-                    <div class="stat-item"><div class="stat-number" data-target="287">0</div><div class="stat-label" data-translate="stat_projects">Projects Completed</div></div>
-                    <div class="stat-item"><div class="stat-number" data-target="194">0</div><div class="stat-label" data-translate="stat_clients">Happy Clients</div></div>
+                    <div class="stat-item"><div class="stat-number" data-target="87">0</div><div class="stat-label" data-translate="stat_projects">Projects Completed</div></div>
+                    <div class="stat-item"><div class="stat-number" data-target="56">0</div><div class="stat-label" data-translate="stat_clients">Happy Clients</div></div>
                     <div class="stat-item"><div class="stat-number" data-target="6">0</div><div class="stat-label" data-translate="stat_years">Years Excellence</div></div>
                     <div class="stat-item"><div class="stat-number" data-target="10">0</div><div class="stat-label" data-translate="stat_team">Team Members</div></div>
                 </div>
@@ -695,15 +695,15 @@
                         <p data-translate="contact_desc">Got a project in mind? Whether it's a complete brand overhaul, a 3D visual, or a complex web/app — let's talk.</p>
                         <div class="contact-detail"><i class="fas fa-envelope"></i> <span data-translate="contact_email">hello@myprimecreative.com</span></div>
                         <div class="contact-detail"><i class="fas fa-phone-alt"></i> <span data-translate="contact_phone">+(509) 3774-3116</span></div>
-                        <div class="contact-detail"><i class="fas fa-map-marker-alt"></i> <span data-translate="contact_address">Montagne Noire, PV</span></div>
+                        <div class="contact-detail"><i class="fas fa-map-marker-alt"></i> <span data-translate="contact_address">Montagne Noire, PV - Remote</span></div>
                         <div class="social-links" style="margin-top:32px;"><a href="#"><i class="fab fa-behance"></i></a><a href="#"><i class="fab fa-dribbble"></i></a><a href="#"><i class="fab fa-linkedin-in"></i></a><a href="#"><i class="fab fa-instagram"></i></a></div>
                     </div>
                     <div class="contact-form">
-                        <form id="inquiryForm">
-                            <div class="form-group"><input type="text" id="name" placeholder="Full name" required data-translate-placeholder="form_name"></div>
-                            <div class="form-group"><input type="email" id="email" placeholder="Email address" required data-translate-placeholder="form_email"></div>
+                        <form id="inquiryForm" method="POST" action="mailto:hello@myprimecreative.com" enctype="text/plain">
+                            <div class="form-group"><input type="text" id="name" name="name" placeholder="Full name" required data-translate-placeholder="form_name"></div>
+                            <div class="form-group"><input type="email" id="email" name="email" placeholder="Email address" required data-translate-placeholder="form_email"></div>
                             <div class="form-group">
-                                <select id="serviceInterest">
+                                <select id="serviceInterest" name="service">
                                     <option value="Graphic Design" data-translate="service_opt1">Graphic Design</option>
                                     <option value="3D & Motion" data-translate="service_opt2">3D & Motion</option>
                                     <option value="Web & App Development" data-translate="service_opt3">Web & App Development</option>
@@ -711,7 +711,7 @@
                                     <option value="Other" data-translate="service_opt5">Other / full package</option>
                                 </select>
                             </div>
-                            <div class="form-group"><textarea rows="4" id="message" placeholder="Tell us about your vision..." data-translate-placeholder="form_message"></textarea></div>
+                            <div class="form-group"><textarea rows="4" id="message" name="message" placeholder="Tell us about your vision..." data-translate-placeholder="form_message"></textarea></div>
                             <button type="submit" class="btn-primary" data-translate="form_submit">Send inquiry →</button>
                             <p id="formFeedback" style="margin-top:16px; font-size:0.85rem;"></p>
                         </form>
@@ -848,7 +848,7 @@
                     author3: "— Aisha Khan", role3: "CTO, NimbusPay",
                     contact_title1: "Let's create something", contact_title2: "remarkable",
                     contact_desc: "Got a project in mind? Whether it's a complete brand overhaul, a 3D visual, or a complex web/app — let's talk.",
-                    contact_address: "Montagne Noire, PV",
+                    contact_address: "Montagne Noire, PV - Remote",
                     contact_phone: "+(509) 3774-3116",
                     contact_email: "hello@myprimecreative.com",
                     form_name: "Full name", form_email: "Email address", form_message: "Tell us about your vision...", form_submit: "Send inquiry →",
@@ -922,7 +922,7 @@
                     author3: "— Aisha Khan", role3: "CTO, NimbusPay",
                     contact_title1: "Créons quelque chose de", contact_title2: "remarquable",
                     contact_desc: "Un projet en tête ? Refonte complète de marque, visuel 3D ou application/web complexe — parlons-en.",
-                    contact_address: "Montagne Noire, PV",
+                    contact_address: "Montagne Noire, PV - Remote",
                     contact_phone: "+(509) 3774-3116",
                     contact_email: "hello@myprimecreative.com",
                     form_name: "Nom complet", form_email: "Adresse e-mail", form_message: "Parlez-nous de votre vision...", form_submit: "Envoyer la demande →",
@@ -993,7 +993,7 @@
                     author3: "— Aisha Khan", role3: "CTO, NimbusPay",
                     contact_title1: "Ann kreye yon bagay", contact_title2: "remakab",
                     contact_desc: "Ou gen yon pwojè nan tèt ou? Kit se yon refonte konplè mak, yon vizyèl 3D, oswa yon aplikasyon/sit konplèks — ann pale.",
-                    contact_address: "Montagne Noire, PV",
+                    contact_address: "Montagne Noire, PV - Remote",
                     contact_phone: "+(509) 3774-3116",
                     contact_email: "hello@myprimecreative.com",
                     form_name: "Non konplè", form_email: "Adrès imèl", form_message: "Pale nou de vizyon ou...", form_submit: "Voye demann lan →",
@@ -1061,7 +1061,7 @@
                         portfolio: "🎨 You can check out our portfolio section on this page! We've done brand identities, 3D furniture renders, fashion e‑commerce sites, fintech apps, and social campaigns. I can also share more tailored examples — what type of work are you looking for?",
                         start: "🚀 Starting a project is easy! 1️⃣ Reach out via the contact form or email us at hello@myprimecreative.com. 2️⃣ We'll schedule a discovery call to understand your vision. 3️⃣ We'll send a proposal with timeline and pricing. 4️⃣ Once approved, we bring your idea to life! Ready to take the first step?",
                         team: "🌟 Prime Creative is a team of designers, 3D artists, developers, and marketing strategists. We've been crafting digital excellence for 6+ years, serving clients from startups to global brands. We're passionate about turning bold ideas into reality!",
-                        contact: "📬 You can reach us at hello@myprimecreative.com or call +(509) 3774-3116. We're based in Montagne Noire, PV, but we work remotely with clients worldwide. Use the contact form on this page — we'll reply within 24h!",
+                        contact: "📬 You can reach us at hello@myprimecreative.com or call +(509) 3774-3116. We're based in Montagne Noire, PV - Remote, but we work remotely with clients worldwide. Use the contact form on this page — we'll reply within 24h!",
                         thank: "You're welcome! 🙌 I'm here whenever you need me. Anything else I can help with?",
                         bye: "Goodbye for now! 👋 Feel free to come back anytime if you have more questions. Have a great day!",
                         whatsapp: "📱 You can speak with a real customer support agent directly on WhatsApp. Click this link to start a chat: https://wa.me/message/TWWSM72QHJJ4B1",
@@ -1090,7 +1090,7 @@
                         portfolio: "🎨 Vous pouvez consulter notre section portfolio sur cette page ! Nous avons réalisé des identités de marque, des rendus 3D de meubles, des sites e‑commerce de mode, des applications fintech et des campagnes sociales. Je peux aussi vous montrer des exemples plus ciblés — quel type de travail cherchez-vous ?",
                         start: "🚀 Démarrer un projet est facile ! 1️⃣ Contactez-nous via le formulaire ou par email à hello@myprimecreative.com. 2️⃣ Nous planifions un appel de découverte pour comprendre votre vision. 3️⃣ Nous vous envoyons une proposition avec calendrier et tarifs. 4️⃣ Une fois approuvé, nous donnons vie à votre idée ! Prêt à faire le premier pas ?",
                         team: "🌟 Prime Creative est une équipe de designers, d'artistes 3D, de développeurs et de stratèges marketing. Nous créons l'excellence numérique depuis plus de 6 ans, au service de clients allant des start-ups aux marques mondiales. Nous sommes passionnés par la transformation d'idées audacieuses en réalité !",
-                        contact: "📬 Vous pouvez nous joindre à hello@myprimecreative.com ou au +(509) 3774-3116. Nous sommes basés à Montagne Noire, PV, mais nous travaillons à distance avec des clients du monde entier. Utilisez le formulaire de contact sur cette page — nous répondons sous 24h !",
+                        contact: "📬 Vous pouvez nous joindre à hello@myprimecreative.com ou au +(509) 3774-3116. Nous sommes basés à Montagne Noire, PV - Remote, mais nous travaillons à distance avec des clients du monde entier. Utilisez le formulaire de contact sur cette page — nous répondons sous 24h !",
                         thank: "De rien ! 🙌 Je suis là quand vous avez besoin de moi. Autre chose ?",
                         bye: "Au revoir pour l'instant ! 👋 N'hésitez pas à revenir quand vous voulez si vous avez d'autres questions. Bonne journée !",
                         whatsapp: "📱 Vous pouvez parler directement avec un agent du support client sur WhatsApp. Cliquez sur ce lien pour démarrer une conversation : https://wa.me/message/TWWSM72QHJJ4B1",
@@ -1119,7 +1119,7 @@
                         portfolio: "🎨 Ou ka gade seksyon pòtfolyo nou sou paj sa! Nou te fè idantite mak, rann 3D mèb, sit e-commerce mòd, apps finansyè, ak kanpay sosyal. Mwen ka pataje plis egzanp adapte — ki kalite travay w ap chèche?",
                         start: "🚀 Kòmanse yon pwojè fasil! 1️⃣ Kontakte nou via fòmilè a oswa imèl hello@myprimecreative.com. 2️⃣ Nou pran yon apèl dekouvèt pou konprann vizyon ou. 3️⃣ Nou voye yon pwopozisyon ak delè ak pri. 4️⃣ Yon fwa apwouve, nou bay lide ou lavi! Ou pare pou premye etap la?",
                         team: "🌟 Prime Creative se yon ekip designer, atis 3D, developè, ak estratejis maketing. Nou kree ekselans dijital depi plis pase 6 an, pou kliyan ki soti nan start-up rive nan mak mondyal. Nou pasyone pou fè lide odasye vin reyalite!",
-                        contact: "📬 Ou ka kontakte nou nan hello@myprimecreative.com oswa +(509) 3774-3116. Nou baze nan Montagne Noire, PV, men nou travay aleka ak kliyan atravè lemond. Sèvi ak fòmilè kontak sou paj sa — nou reponn nan lespas 24h!",
+                        contact: "📬 Ou ka kontakte nou nan hello@myprimecreative.com oswa +(509) 3774-3116. Nou baze nan Montagne Noire, PV - Remote, men nou travay aleka ak kliyan atravè lemond. Sèvi ak fòmilè kontak sou paj sa — nou reponn nan lespas 24h!",
                         thank: "Padekoua! 🙌 Mwen la chak fwa ou bezwen mwen. Yon lòt bagay?",
                         bye: "Orevwa pou kounye a! 👋 Ou lib pou retounen nenpòt lè si w gen plis kesyon. Pase yon bon jounen!",
                         whatsapp: "📱 Ou ka pale dirèkteman ak yon ajan sipò kliyan sou WhatsApp. Klike sou lyen sa a pou kòmanse yon konvèsasyon: https://wa.me/message/TWWSM72QHJJ4B1",
@@ -1474,13 +1474,19 @@
             const statsContainer = document.getElementById('statsContainer');
             if (statsContainer) statsObserver.observe(statsContainer);
 
-            // ── Form handler ──
+            // ── Form handler: send email via mailto ──
             const form = document.getElementById('inquiryForm');
             const feedback = document.getElementById('formFeedback');
-            form.addEventListener('submit', (e) => {
-                e.preventDefault();
+
+            form.addEventListener('submit', function(e) {
+                e.preventDefault(); // We'll handle the submission
+
                 const name = document.getElementById('name')?.value.trim();
                 const email = document.getElementById('email')?.value.trim();
+                const service = document.getElementById('serviceInterest')?.value;
+                const message = document.getElementById('message')?.value.trim();
+
+                // Validation
                 if (!name || !email) {
                     feedback.textContent = '❌ Please fill name and email.';
                     feedback.style.color = '#e11d48';
@@ -1491,7 +1497,16 @@
                     feedback.style.color = '#e11d48';
                     return;
                 }
-                feedback.innerHTML = '✨ Thanks! We\'ll reply within 24h.';
+
+                // Build email subject and body
+                const subject = `New inquiry from ${name}`;
+                const body = `Name: ${name}%0D%0AEmail: ${email}%0D%0AService: ${service}%0D%0AMessage: ${message || 'No message provided.'}`;
+
+                // Open mailto link
+                window.location.href = `mailto:hello@myprimecreative.com?subject=${encodeURIComponent(subject)}&body=${body}`;
+
+                // Show success message
+                feedback.innerHTML = '✨ Your inquiry has been sent! We\'ll reply within 24h.';
                 feedback.style.color = '#10b981';
                 form.reset();
                 setTimeout(() => feedback.textContent = '', 4000);
@@ -1513,7 +1528,6 @@
 
             // ── Force page to top on load ──
             window.addEventListener('load', function() {
-                // Remove any hash fragment to prevent scrolling
                 if (window.location.hash) {
                     history.replaceState(null, '', window.location.pathname + window.location.search);
                 }
@@ -1789,8 +1803,6 @@
 
                 document.querySelectorAll('.thumbnail-strip img').forEach((thumb, i) => {
                     thumb.classList.toggle('active', i === currentIndex);
-                    // Only scroll thumbnails if user explicitly clicks one, not on load
-                    // We'll skip automatic scroll on initial render
                 });
 
                 catDesign.classList.remove('active');
@@ -2023,4 +2035,4 @@
     </script>
 
 </body>
-                </html>
+                                                                                                                                           </html>
